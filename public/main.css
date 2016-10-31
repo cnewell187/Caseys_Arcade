@@ -1,0 +1,71 @@
+html, body {
+  margin: 0 auto;
+  padding: 0;
+  text-align: center;
+  font-family: Tahoma, sans-serif;
+}
+
+.btn-main {
+  background-color: #333;
+  color: #fff;
+
+  font-weight: 600;
+  font-size: 18px;
+  letter-spacing: 1.3px;
+  padding: 16px 40px;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.main{
+  text-align: center;
+}
+.gameBackground{
+  height: 90vh;
+  background: url(http://cdn.wallpapersafari.com/49/80/21L9av.jpg);
+  margin: 0;
+}
+
+.navbar{
+  margin: 0;
+
+}
+
+.navbar-inverse .navbar-brand {
+    color: #7FFF00;
+}
+
+
+
+.btn-main {
+  background-color: #333;
+  color: #fff;
+  font-weight: 600;
+  font-size: 18px;
+  letter-spacing: 1.3px;
+  padding: 16px 40px;
+  text-decoration: none;
+  text-transform: uppercase;
+  border: black solid 2px;
+  }
+
+  .gameSpecial{
+    margin-top: 20vh;
+    margin-bottom: 40px;
+    color: #7FFF00;
+
+  }
+
+  .shadowText{
+    text-shadow: -3px 0 black, 0 3px black, 3px 0 black, 0 -3px black;
+  }
+
+  .footer{
+    text-align: left;
+    color: #7FFF00;
+    background-color: #333;
+  }
+
+  .footer p{
+    margin: 0;
+  }
