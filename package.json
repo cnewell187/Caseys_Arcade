@@ -4,8 +4,11 @@
   "description": "Pew Pew!",
   "main": "routes.js",
   "dependencies": {
+    "bcryptjs": "^2.3.0",
     "body-parser": "^1.15.2",
+    "client-sessions": "^0.7.0",
     "express": "^4.14.0",
+    "mongoose": "^4.6.6",
     "morgan": "^1.7.0",
     "request": "^2.76.0"
   },

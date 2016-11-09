@@ -1,6 +1,7 @@
 angular.module('arcade', ['ngRoute'])
     .controller("joystickController", joystick);
 
+
 joystick.$inject = ['$http'];
 
 angular.module("arcade").config(gameRoutes);
@@ -15,6 +16,11 @@ function gameRoutes($routeProvider) {
         .when('/games', {
             templateUrl: "/html/games.html",
         })
+        .when('/profile', {
+            templateUrl: "/html/profile.html",
+            controller: 'profileController',
+            controllerAs: 'profCtrl'
+        })
         .when('/about', {
             templateUrl: "/html/about.html",
         })
@@ -23,6 +29,16 @@ function gameRoutes($routeProvider) {
         })
         .when('/fail', {
             templateUrl: "/html/turnBack.html",
+        })
+        .when('/login',{
+          templateUrl: "/html/login.html",
+          controller: 'userController',
+          controllerAs: 'userCtrl'
+        })
+        .when('/register',{
+          templateUrl: "html/register.html",
+          controller: 'userController',
+          controllerAs: 'userCtrl'
         })
         .otherwise({
             redirectTo: "/fail",

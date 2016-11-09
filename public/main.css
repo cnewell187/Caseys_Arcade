@@ -69,3 +69,7 @@ html, body {
   .footer p{
     margin: 0;
   }
+
+  .greenText {
+      color: #7FFF00;
+  }

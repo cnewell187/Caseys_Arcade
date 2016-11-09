@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html ng-app="arcade" lang="en">
+
+<head>
+    <title>Casey's Arcade</title>
+    <link rel="stylesheet" href="./html/css/form.css">
+  <!-- <script type="text/javascript" src="/js/login.js"></script> -->
+</head>
+
+<body>
+
+
+    <div class="jumbotron gameBackground">
+        <div class="container">
+            <div class="row gameSpecial">
+                <span class="col-md-3"></span>
+                <span class="col-md-6 ">
+                  Email<input class="form-control dark-form" ng-model="userCtrl.email" placeholder="Email">
+                  Password<input class="form-control dark-form" ng-model="userCtrl.password" placeholder="Password">
+                <span class="col-md-3"></span>
+            </div>
+            <div class="row">
+                <span class="col-md-3"></span>
+                <span class="col-md-6 "> <button type="submit" class="siteBtn" ng-click="userCtrl.login()">Login</button> </span>
+                <span class="col-md-3"></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>&copy; Casey's Arcade 2016</p>
+    </div>
+
+
+</body>
+
+</html>
