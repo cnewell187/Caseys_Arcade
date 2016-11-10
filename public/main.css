@@ -21,7 +21,7 @@ html, body {
   text-align: center;
 }
 .gameBackground{
-  height: 90vh;
+  height: 89vh;
   background: url(http://cdn.wallpapersafari.com/49/80/21L9av.jpg);
   margin: 0;
 }
@@ -72,4 +72,9 @@ html, body {
 
   .greenText {
       color: #7FFF00;
+  }
+
+  .gameLinks {
+      color: #7FFF00;
+      font-size: 18px;
   }

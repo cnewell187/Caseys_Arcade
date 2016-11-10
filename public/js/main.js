@@ -1,8 +1,8 @@
-angular.module('arcade', ['ngRoute'])
+angular.module('arcade', ['ngRoute', "ngCookies"])
     .controller("joystickController", joystick);
 
 
-joystick.$inject = ['$http'];
+joystick.$inject = ['$http','profileFact'];
 
 angular.module("arcade").config(gameRoutes);
 
@@ -23,6 +23,15 @@ function gameRoutes($routeProvider) {
         })
         .when('/about', {
             templateUrl: "/html/about.html",
+        })
+        .when('/guacAMole', {
+            templateUrl: "/html/guacAMole.html",
+        })
+        .when('/snake', {
+            templateUrl: "/html/snake.html",
+        })
+        .when('/tetris', {
+            templateUrl: "/html/tetris.html",
         })
         .when('/contact', {
             templateUrl: "/html/contact.html",
@@ -45,10 +54,12 @@ function gameRoutes($routeProvider) {
         })
 };
 
-function joystick($http) {
+function joystick($http, profileFact) {
     var joy = this;
     joy.newUser = {};
     joy.greeting = "You are now under our control, do not attempt to change the channel";
+    profileFact.getUserData();
+    joy.userData = profileFact.userData
     joy.addUser = function() {
         console.log("New User: ",
             joy.newUser);

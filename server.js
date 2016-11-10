@@ -5,7 +5,7 @@ var logger = require('morgan');
 var routes = require("./routes.js");
 var mongoose = require("mongoose")
 var sessions = require('client-sessions')({
-  cookieName: "Hero Sesh",
+  cookieName: "UserInfo",
   secret: "superStrongSecret",
   requestKey: 'session', //req.session
   duration: 80000000, //how long can someone stay logged in, in milliseconds

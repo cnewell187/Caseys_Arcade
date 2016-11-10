@@ -66,10 +66,37 @@ function session (req, res, next){
 
 }
 
+function newScore(req,res){
+  console.log(req.body)
+  var info =req.body
+
+
+  info.message ="Score Submitted Yo"
+  res.send(info)
+}
+
+function getUser(req, res){
+  if(req.session.userId){
+    console.log("the session function running")
+    User.findOne({
+      _id: req.session.userId
+    },function(err, userDoc) {
+        if (err) {
+            return res.send(err);
+        }
+        res.send(userDoc);
+    })
+  }
+  else{
+    res.send({userName: "register", logoutStatus:"#/login", registerStatus: "register"});
+  }
+}
+
 module.exports ={
   login:login,
   register: register,
   logout:logout,
   session:session,
-
+  newScore: newScore,
+  getUser: getUser
 }
