@@ -23,10 +23,14 @@ function userController($http, $location, profileFact) {
                   profileFact.userData.userName = res.data.userName
                   $location.url("/profile")
                 }
+                else{
+                  $location.url("/fail")
+                }
             },
 
             function(err) {
                 //helps to debug errors on the front end yo!
+                $location.url("/fail")
                 console.error(err);
             })
     }

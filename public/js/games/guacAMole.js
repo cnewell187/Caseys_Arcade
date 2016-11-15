@@ -1,4 +1,4 @@
-var game = new Phaser.Game(640,  480, Phaser.CANVAS, 'phaser', {
+var game = new Phaser.Game(640, 480, Phaser.CANVAS, 'phaser', {
     preload: preload,
     create: create,
     update: update,
@@ -40,8 +40,8 @@ function create() {
     //game.stage.scale.refresh();
     pic = game.add.sprite(game.world.centerX, game.world.centerY, 'desert');
     pic.anchor.set(0.5);
-    pic.scale.setTo(0.8,0.8);
-    scoreText = game.add.text(game.world.centerX + 140, game.world.centerY+176 ,
+    pic.scale.setTo(0.8, 0.8);
+    scoreText = game.add.text(game.world.centerX + 140, game.world.centerY + 176,
         "Score: " + score, {
             font: "40px Arial",
             fill: "#ffff00",
@@ -57,7 +57,7 @@ function create() {
         boundsAlignV: "top",
     });
 
-    //welcomeText.setTextBounds(16, 0, 768, 568);
+
 
     startText = game.add.text(game.world.centerX, game.world.centerY - 50, "Click to smash some Avocados!");
     startText.anchor.setTo(0.5);
@@ -75,7 +75,16 @@ function create() {
 }
 
 function startGame() {
-  console.log("Starting the Game")
+    scoreData = {
+        game: 'guacAMole',
+        gameAvatar: "yo"
+    }
+    $.ajax({
+        url: "/updateLastPlayed",
+        method: 'POST',
+        data: scoreData
+    })
+    console.log("Starting the Game")
     startButton.destroy();
     startText.setText("");
     createAvocado();
@@ -86,7 +95,7 @@ function avocado() {
     mainThis.MIN_AVOCADO_GROWTH = 1000;
     mainThis.MAX_AVOCADO_GROWTH = 3000;
     console.log("Game width:", game.width)
-    mainThis.avocadoImage = game.add.sprite(game.rnd.integerInRange(0, game.width), game.rnd.integerInRange(120, game.height-120), 'avocadoLarge');
+    mainThis.avocadoImage = game.add.sprite(game.rnd.integerInRange(0, game.width), game.rnd.integerInRange(120, game.height - 120), 'avocadoLarge');
     mainThis.alive = true;
     mainThis.avocadoImage.scale.setTo(0.5, 0.5);
     mainThis.avocadoImage.anchor.set(0.5);
@@ -113,7 +122,7 @@ function avocado() {
 
             splooge.animations.play('sploogeBOOM', 24, false, true);
             r.kill();
-            if (avocadosMade < 50) {
+            if (avocadosMade < 4) {
 
                 game.time.events.add(1000, createAvocado);
             } else {
@@ -124,7 +133,7 @@ function avocado() {
     });
 
     mainThis.killMe = function() {
-        if (avocadosMade < 50) {
+        if (avocadosMade < 4) {
 
             if (mainThis.alive === true) {
                 mainThis.avocadoImage.kill();
@@ -173,7 +182,7 @@ function createAvocado() {
 
 
 function update() {
-  console.log("updating the game")
+    console.log("updating the game")
 }
 
 function render() {
@@ -215,11 +224,18 @@ function submitScore() {
     submittedText.anchor.setTo(0.5);
     submitText.setText('')
     button.destroy();
-    // $.ajax({
-    //   url:
-    //   method:'POST',
-    //   data:
-    // })
+
+    var scoreData = {
+        game: "guacAMole",
+        score: score,
+        gameAvatar: "yo"
+    }
+    console.log("Ajaxing!")
+    $.ajax({
+        url: "/newScore",
+        method: 'POST',
+        data: scoreData
+    })
 }
 
 var resizeGame = function() {

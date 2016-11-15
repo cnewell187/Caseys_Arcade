@@ -21,9 +21,15 @@ html, body {
   text-align: center;
 }
 .gameBackground{
-  height: 89vh;
+  min-height: 89vh;
   background: url(http://cdn.wallpapersafari.com/49/80/21L9av.jpg);
+  /*background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;*/
   margin: 0;
+  padding-top: 20px;
+  padding-bottom: 20px;
 }
 
 .navbar{
@@ -77,4 +83,39 @@ html, body {
   .gameLinks {
       color: #7FFF00;
       font-size: 18px;
+  }
+
+  .leaderboardTable{
+    color:#7FFF00;
+    text-align: left;
+  }
+
+  .table-hover{
+    background-color: black;
+    color: #7FFF00;
+
+  }
+
+  .avatar{
+    height: 60px;
+    width: 60px;
+    margin-top:30px;
+  }
+
+  .gameAvatar{
+    height: 25vw;
+    width: 25vw;
+    border: black solid 5px;
+    background: purple;
+  }
+  .leftText{
+    text-align: left;
+  }
+
+  .gameProfile{
+    height: 100px;
+    width: 100px;
+
+    border: black solid 5px;
+    background: purple;
   }

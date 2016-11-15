@@ -1,5 +1,7 @@
 //MASTER ROUTING FILE!
 var userController = require('./controllers/userController.js')
+var scoreController = require('./controllers/scoreController.js')
+var User = require("./models/usersModel.js");
 
 module.exports = function(app) {
     app.get('/' ,function(req, res) {
@@ -7,11 +9,14 @@ module.exports = function(app) {
     });
 
     app.get('/logout' ,function(req, res) {
+      console.log("destroying req.session")
+      console.log(req.session)
        req.session.destroy();
         res.redirect('/')
     });
 
     app.get('/guacAMole', function(req, res) {
+      console.log(req.session)
         res.sendFile('guacAMole.html', {root: './public/html'})
     });
 
@@ -20,6 +25,10 @@ module.exports = function(app) {
     });
 
     app.get('/tetris', function(req, res) {
+      console.log("navigating to tetrs:" ,req.session.userId)
+      User.find({_id:req.session.userId},function(err, doc){
+        console.log("the Doc: ", doc)
+      })
         res.sendFile('tetris.html', {root: './public/html'})
     });
 
@@ -27,7 +36,13 @@ module.exports = function(app) {
         res.sendFile('towerDefense.html', {root: './public/html'})
     })
       app.get('/userData', userController.getUser)
+      app.get('/otherUserData/:userName', userController.getOtherUser)
       app.post('/login', userController.login)
       app.post('/register', userController.register)
       app.post('/newScore', userController.newScore)
+      app.get('/getMyGameStats', scoreController.getMyGameStats)
+      app.post('/updateLastPlayed', scoreController.updateLastPlayed)
+      app.get('/snakeLeaderboard', scoreController.snakeLeaderboard)
+      app.get('/guacAMoleLeaderboard', scoreController.guacAMoleLeaderboard)
+
 }

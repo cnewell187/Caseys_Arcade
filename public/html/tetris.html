@@ -8,12 +8,15 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.8/angular.js"></script>
+          <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.8/angular-cookies.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.8/angular-route.js" integrity="sha256-SAQ4JgNuN5J22HeNmrNXLyvqEh6gUoWsetBCX8EUnZQ=" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="/main.css">
+
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/phaser/2.6.2/phaser.js"></script>
     <script type="text/javascript" src="/js/main.js"></script>
       <script type="text/javascript" src="/js/login.js"></script>
       <script type="text/javascript" src="/js/profileFactory.js"></script>
+        <script type="text/javascript" src="/js/scoreFactory.js"></script>
       <script type="text/javascript" src="/js/profile.js"></script>
     <link rel='shortcut icon' href="/favicon.ico?v=2" type='image/gif' />
 
@@ -34,11 +37,11 @@
               <li><a href="/#/about">About</a>
               </li>
               <li><a href="/#/games">Games</a></li>
-              <li><a href="/#/contact">Contact</a></li>
+              <li><a href="/#/leaderboards">Leaderboards</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
-              <li><a href="/#/register"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-              <li><a href="/#/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+            <li><a href="/#/{{joy.userData.registerStatus}}"><span class="glyphicon glyphicon-user"></span>{{joy.userData.userName}}</a></li>
+            <li><a href="/{{joy.userData.logoutStatus}}"><span class="glyphicon glyphicon-log-in"></span> {{joy.userData.logoutStatus}}</a></li>
           </ul>
       </div>
   </nav>

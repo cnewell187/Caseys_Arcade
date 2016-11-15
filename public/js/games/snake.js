@@ -105,6 +105,10 @@ function reset() {
     direction = 'right';
     score = 0;
 
+    ctx.fillStyle = "black";
+    ctx.fillRect(0, 0, 450, 450);
+
+
 }
 
 
@@ -155,8 +159,9 @@ function bodyWallCheck(snakeArray) {
         if ((snakeArray[snakeArray.length - 1].x === bodyShape[i].x && snakeArray[snakeArray.length - 1].y === bodyShape[i].y) ||
             snakeArray[snakeArray.length - 1].x > 30 || snakeArray[snakeArray.length - 1].x < 0 ||
             snakeArray[snakeArray.length - 1].y > 30 || snakeArray[snakeArray.length - 1].y < 0) {
-            alert("NOOOO!!!");
-            reset();
+
+            alert("Game Over!");
+            gameOver();
             return false;
             // play = setInterval(function() {
             //     snakePlay(bodyShape, noms);
@@ -165,8 +170,61 @@ function bodyWallCheck(snakeArray) {
         }
     }
 }
+function gameOver(){
+  clearInterval(gameId);
+  bodyShape = [{
+          x: 0,
+          y: 1
+      }, {
+          x: 1,
+          y: 1
+      }, {
+          x: 2,
+          y: 1
+      }, {
+          x: 3,
+          y: 1
+      },
+
+  ];
+  direction = 'right';
+
+
+  ctx.fillStyle = "black";
+  ctx.fillRect(0, 0, 450, 450);
+
+ var txt;
+ var r = confirm("Would you like to submit your score?");
+ if (r == true) {
+     txt = "Your score has been submitted!";
+     var scoreData = {
+       game: "snake",
+       score: score,
+       gameAvatar: "yo"
+     }
+     console.log("Ajaxing!")
+     $.ajax({
+        url:"/newScore",
+        method:'POST',
+        data:scoreData
+      })
+
+
+
+ } else {
+     txt = "You did not submit your score!";
+
+ }
+
+ ctx.fillStyle = "#7FFF00";
+ ctx.font = "20px Georgia";
+ ctx.fillText(txt, 100, 200);
+
+
+}
 
 function snakePlay(snakeArray, foodObject) {
+
     landScape(foodObject); //creates the background and places food
     snake_eat(foodObject); //checks to see if the snake has eaten the food, then adds to snake if yes
     snakeMove(snakeArray); //moves the snake based on direction
@@ -204,6 +262,17 @@ document.onkeydown = function(event) {
 
 //runs snakePlay
 function play() {
+
+  scoreData = {
+    game: 'snake',
+    gameAvatar: "yo"
+  }
+  $.ajax({
+     url:"/updateLastPlayed",
+     method:'POST',
+     data: scoreData
+   })
+  score = 0;
     reset();
     gameId = setInterval(snakePlay, 100, bodyShape, noms);
 }
@@ -211,7 +280,6 @@ function play() {
 function landScape2(){
   ctx.fillStyle = "black";
   ctx.fillRect(0, 0, 450, 450);
-  //ctx.drawImage(img1, foodObject.x, foodObject.y, snake_seg, snake_seg)
   ctx.fillStyle = "#7FFF00";
   ctx.font = "20px Georgia";
   ctx.fillText("SNAKE!!!", 190, 200);
