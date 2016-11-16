@@ -9,8 +9,10 @@ function profileController($http, $location, profileFact){
   profileFact.getOtherUserData();
   profCtrl.userData = profileFact.userData;
   profCtrl.otherUserData= profileFact.otherUserData;
+  //profileFact.myGameStats = [];
   profileFact.getMyGameStats();
   profCtrl.myGameStats = profileFact.myGameStats;
+  console.log("profCtrl.myGameStats: ", profCtrl.myGameStats)
 
   //console.log(profCtrl)
 

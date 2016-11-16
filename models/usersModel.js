@@ -20,7 +20,8 @@ var userSchema = mongoose.Schema({
     games:{type: Array, default:[]},
     totalPoints: {type:Number, default:0},
     logoutStatus: {type: String, default: "logout"},
-    registerStatus: {type:String, default: "profile"}
+    registerStatus: {type:String, default: "profile"},
+    
     //user attributes go here
 });
 

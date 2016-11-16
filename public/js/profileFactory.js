@@ -30,6 +30,7 @@ function profileFactory($http, $cookies, $location, $routeParams) {
             userData.logoutStatus = responseData.data.logoutStatus
             userData.logoutStatus2 = responseData.data.logoutStatus2
             userData.registerStatus = responseData.data.registerStatus
+            userData.totalPoints = responseData.data.totalPoints
             console.log(userData.registerStatus)
         })
     }
@@ -51,11 +52,15 @@ function profileFactory($http, $cookies, $location, $routeParams) {
     function getMyGameStats() {
 
         $http.get('/getMyGameStats/').then(function(responseData) {
+          //myGameStats =[];
 
             console.log("The response Data from getMyGameStats: ", responseData)
+
+            if(myGameStats.length === 0){
             for(var i = 0; i< responseData.data.length; i++){
               myGameStats.push(responseData.data[i])
             }
+          }
             console.log("My game Stats from profileFactory: ", myGameStats)
         })
 

@@ -110,6 +110,12 @@ function newScore(req, res) {
             }
 
         )
+        User.findOneAndUpdate({
+                _id: req.session.userId
+            }, { $inc :{totalPoints: 1}}, {new:true}, function(err ,doc){
+                console.log("Update total points: ", doc)
+            });
+
     } else {
         res.send("You must be logged in to save your score!")
     }
