@@ -77,7 +77,7 @@ function create() {
 function startGame() {
     scoreData = {
         game: 'guacAMole',
-        gameAvatar: "yo"
+        gameAvatar: "../assets/guacAMole_icon.png"
     }
     $.ajax({
         url: "/updateLastPlayed",
@@ -228,7 +228,7 @@ function submitScore() {
     var scoreData = {
         game: "guacAMole",
         score: score,
-        gameAvatar: "yo"
+        gameIcon:  "../assets/guacAMole_icon.png"
     }
     console.log("Ajaxing!")
     $.ajax({

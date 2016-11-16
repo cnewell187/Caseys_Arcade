@@ -82,7 +82,6 @@ function newScore(req, res) {
                 var conditions = {
                     gameUser: doc.userName, //req.session.userId
                     game: req.body.game,
-
                 }
                 var now = Date.now()
                 var update = {
@@ -96,11 +95,9 @@ function newScore(req, res) {
                       lastPlayed: now
                     },
                     $set :{
-                      gameAvatar: req.body.gameAvatar
+                      gameIcon: req.body.gameIcon
                     }
                 }
-
-
                 Game.findOneAndUpdate(conditions, update, {
                     upsert: true,
                     new: true

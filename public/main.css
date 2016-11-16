@@ -22,11 +22,13 @@ html, body {
 }
 .gameBackground{
   min-height: 89vh;
-  background: url(http://cdn.wallpapersafari.com/49/80/21L9av.jpg);
+  background: url(./assets/arcadeBackground.jpg);
   /*background-attachment: fixed;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;*/
+    background-repeat: no-repeat;
+    background-attachment: fixed;
   margin: 0;
   padding-top: 20px;
   padding-bottom: 20px;
@@ -34,6 +36,9 @@ html, body {
 
 .navbar{
   margin: 0;
+  position: fixed;
+  z-index: 9000;
+  width: 99vw;
 
 }
 
@@ -118,4 +123,18 @@ html, body {
 
     border: black solid 5px;
     background: purple;
+  }
+
+  .container{
+  display: inline-block;
+  }
+
+  .gameIcon {
+    display: inline-block;
+    margin-right: 10px;
+
+  }
+
+  .gameIcon p {
+    font-size: 14px;
   }

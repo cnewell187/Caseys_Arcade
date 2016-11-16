@@ -200,7 +200,7 @@ function gameOver(){
      var scoreData = {
        game: "snake",
        score: score,
-       gameAvatar: "yo"
+       gameIcon: "../assets/snake_icon.png"
      }
      console.log("Ajaxing!")
      $.ajax({

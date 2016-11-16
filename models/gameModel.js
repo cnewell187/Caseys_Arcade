@@ -15,7 +15,7 @@ var gameSchema = mongoose.Schema({
       type: Number,
       default: () => Date.now()
   },
-  gameAvatar:{
+  gameIcon:{
       type: String,
   }
 })

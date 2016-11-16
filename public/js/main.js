@@ -67,10 +67,11 @@ function joystick($http, profileFact, scoreFact, $location) {
     joy.newUser = {};
     joy.greeting = "You are now under our control, do not attempt to change the channel";
     profileFact.getUserData();
-    joy.userData = profileFact.userData
-    joy.otherUserData =profileFact.otherUserData
-    joy.snakeLeaderboard = []
-    joy.guacAMoleLeaderboard =[]
+    joy.userData = profileFact.userData;
+    joy.otherUserData =profileFact.otherUserData;
+    joy.snakeLeaderboard = [];
+    joy.guacAMoleLeaderboard =[];
+    joy.tetrisLeaderboard = [];
 
 
     joy.getLeaderboard = function(game) {
@@ -94,6 +95,7 @@ function joystick($http, profileFact, scoreFact, $location) {
     }
     joy.getLeaderboard("snakeLeaderboard");
     joy.getLeaderboard('guacAMoleLeaderboard')
+    joy.getLeaderboard('tetrisLeaderboard')
   //   scoreFact.getLeaderboard();
   //   joy.snakeLeaderboard = scoreFact.leaderboardData
   //  console.log(scoreFact.leaderboardData, "Booop")

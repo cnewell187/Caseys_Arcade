@@ -4,6 +4,7 @@ var User = require("../models/usersModel.js");
 module.exports = {
     snakeLeaderboard: snakeLeaderboard,
     guacAMoleLeaderboard: guacAMoleLeaderboard,
+    tetrisLeaderboard: tetrisLeaderboard,
     updateLastPlayed: updateLastPlayed,
     getMyGameStats: getMyGameStats
 }
@@ -47,6 +48,19 @@ function tetrisLeaderboard(req, res) {
     )
 }
 
+function getLeaderBoard(req, res){
+  Game.find({
+      game: req.body.game
+  }).sort({
+      'highscore': -1
+  }).limit(5).exec(
+      function(err, data) {
+          console.log(data)
+          res.send(data)
+      }
+  )
+}
+
 function updateLastPlayed(req, res) {
     console.log("The req.body", req.body)
     var info = req.body
@@ -66,7 +80,6 @@ function updateLastPlayed(req, res) {
                     }
 
                 }
-
 
                 Game.findOneAndUpdate(conditions, update, {
                     upsert: true,
@@ -93,10 +106,6 @@ function getMyGameStats(req, res){
               var conditions = {
                   gameUser: doc.userName,
                 }
-
-
-
-
               Game.find(conditions, function(err, docs) {
                   console.log("The error: ", err)
                   console.log("Score updated Docs ", docs)

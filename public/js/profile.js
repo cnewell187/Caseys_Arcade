@@ -10,6 +10,7 @@ function profileController($http, $location, profileFact){
   profCtrl.userData = profileFact.userData;
   profCtrl.otherUserData= profileFact.otherUserData;
   profileFact.getMyGameStats();
+  profCtrl.myGameStats = profileFact.myGameStats;
 
   //console.log(profCtrl)
 

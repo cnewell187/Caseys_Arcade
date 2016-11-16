@@ -56,8 +56,7 @@ function profileFactory($http, $cookies, $location, $routeParams) {
             for(var i = 0; i< responseData.data.length; i++){
               myGameStats.push(responseData.data[i])
             }
-            console.log("My game Stats: ", myGameStats)
-
+            console.log("My game Stats from profileFactory: ", myGameStats)
         })
 
     }

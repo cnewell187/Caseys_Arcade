@@ -44,5 +44,7 @@ module.exports = function(app) {
       app.post('/updateLastPlayed', scoreController.updateLastPlayed)
       app.get('/snakeLeaderboard', scoreController.snakeLeaderboard)
       app.get('/guacAMoleLeaderboard', scoreController.guacAMoleLeaderboard)
+      app.get('/tetrisLeaderboard', scoreController.tetrisLeaderboard)
+
 
 }
