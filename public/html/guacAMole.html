@@ -62,10 +62,10 @@
                 <div class="col-md-4 greenText" ng-controller="chatController as chat" style="margin-top:100px">
 
 
-                    <h3> Welcome, {{chat.userData.userName}}</h3>
+                    <h3 class="shadowText">Guac-A-Mole Chatroom</h3>
 
                     <div>
-                        <h3>Chat History</h3>
+
                         <div class="chatroom" id="chatroom">
                         <div ng-repeat="message in chat.messageHistory" >
                             {{message.sender}} : {{message.content}}
@@ -75,10 +75,10 @@
 
                     <div>
                       <form ng-submit="chat.talk()">
-                        <input type="text" ng-model="chat.message">
+                        <input type="text" class="chatInput" ng-model="chat.message" style="width: 100%">
                       </form>
-                        <!-- <button type="button" ng-click="chat.sendShout()"> Shout!</button> -->
-                        <button type="button" ng-click="chat.talk()"> Talk!</button>
+
+                        <button type="button" class="chatButton" ng-click="chat.talk()" style="width: 100%"> Talk!</button>
 
                     </div>
 

@@ -48,47 +48,54 @@
       </div>
   </nav>
 
-    <div class="jumbotron gameBackground">
-        <div class="container">
-            <div class="row">
-                <span class="col-md-4"></span>
-                <canvas class="col-md-4" id='canvas' width='460px' height='460px'></canvas>
-                <div class="col-md-4 greenText" ng-controller="chatController as chat" style="margin-top:100px">
+  <div class="jumbotron gameBackground">
+      <div class="container">
+          <div class="row">
 
+            <span class="col-md-6">
+              <canvas class="pull-left" id='canvas' width='460px' height='460px'>
+                <img id="hamster" src="http://images.clipartpanda.com/hamster-clipart-25382781-cute-hamster-vector-illustration-on-white-background-Stock-Vector.jpg" height="15" width="15">
+              </canvas>
 
-                    <h3> Welcome, {{chat.userData.userName}}</h3>
+              <button type="button" class="btn btn-success col-md-3 " onclick="play()" style="width: 229px">Start</button>
+              <button type="button" class="btn btn-danger col-md-3 " onclick="reset()" style="width: 229px">Reset</button>
 
-                    <div>
-                        <h3>Chat History</h3>
-                        <div class="chatroom" id="chatroom">
-                        <div ng-repeat="message in chat.messageHistory" >
-                            {{message.sender}} : {{message.content}}
-                        </div>
+            </span>
+
+            <span class="col-md-2"></span>
+              <div class="col-md-4 greenText " ng-controller="chatController as chat" style="margin-top:100px">
+                  <h3 class="shadowText"> Tetris Chatroom</h3>
+
+                  <div>
+
+                      <div class="chatroom" id="chatroom">
+                      <div ng-repeat="message in chat.messageHistory" >
+                          {{message.sender}} : {{message.content}}
                       </div>
-                    </div>
 
+                    </div>
                     <div>
                       <form ng-submit="chat.talk()">
-                        <input type="text" ng-model="chat.message">
+                        <input type="text" class="chatInput" ng-model="chat.message" style="width: 100%">
                       </form>
-                        <!-- <button type="button" ng-click="chat.sendShout()"> Shout!</button> -->
-                        <button type="button" ng-click="chat.talk()"> Talk!</button>
+
+                        <button type="button" class="chatButton" ng-click="chat.talk()" style="width: 100%"> Talk!</button>
 
                     </div>
+                  </div>
 
 
-                </div>
-          <img id="hamster" src="http://images.clipartpanda.com/hamster-clipart-25382781-cute-hamster-vector-illustration-on-white-background-Stock-Vector.jpg" height="15" width="15">
-          </div>
+
+
+              </div>
+
+        </div>
         <div class="row">
-          <span class ="col-md-4"></span>
-          <button type="button" class="btn btn-success col-md-2" onclick="play()">Start</button>
-          <button type="button" class="btn btn-danger col-md-2" onclick="reset()">Stop</button>
-          <span class ="col-md-4"></span>
+
+          <span class ="col-md-6"></span>
         </div>
       </div>
     </div>
-
       <div class="footer">
           <p>&copy; Casey's Arcade 2016</p>
       </div>

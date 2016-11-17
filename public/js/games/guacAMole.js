@@ -12,6 +12,7 @@ var score = 0;
 var scoreText;
 var gameOverText;
 var submitText;
+var submittedText;
 var button;
 var startButton;
 var startText;
@@ -24,6 +25,8 @@ function preload() {
     game.load.image('guacSmall', 'assets/guacAMole/guacamole_small.png');
     game.load.image('desert', 'assets/guacAMole/desert.jpg');
     game.load.image('button', 'assets/guacAMole/submit.png');
+    game.load.image('playAgain', 'assets/guacAMole/playAgain.png');
+
     game.load.spritesheet('greenSmash', 'assets/guacAMole/greenSmash4.png', 100, 100, 11);
 
 }
@@ -75,6 +78,12 @@ function create() {
 }
 
 function startGame() {
+
+  submittedText = game.add.text(game.world.centerX, game.world.centerY - 50, "");
+  submittedText.anchor.setTo(0.5);
+
+    avocadosMade = 0
+    score = 0
     scoreData = {
         game: 'guacAMole',
         gameAvatar: "../assets/guacAMole_icon.png"
@@ -87,6 +96,8 @@ function startGame() {
     console.log("Starting the Game")
     startButton.destroy();
     startText.setText("");
+    // submittedText = game.add.text(game.world.centerX, game.world.centerY - 50, "Your score has been submitted!");
+    // submittedText.setText('')
     createAvocado();
 }
 
@@ -122,7 +133,7 @@ function avocado() {
 
             splooge.animations.play('sploogeBOOM', 24, false, true);
             r.kill();
-            if (avocadosMade < 4) {
+            if (avocadosMade < 50) {
 
                 game.time.events.add(1000, createAvocado);
             } else {
@@ -133,7 +144,7 @@ function avocado() {
     });
 
     mainThis.killMe = function() {
-        if (avocadosMade < 4) {
+        if (avocadosMade < 50) {
 
             if (mainThis.alive === true) {
                 mainThis.avocadoImage.kill();
@@ -214,21 +225,23 @@ function gameOver() {
 }
 
 function reset() {
-
+ submittedText.setText('')
+ startGame();
 }
 
 function submitScore() {
     console.log("clearing gameovertext")
     gameOverText.setText("");
-    submittedText = game.add.text(game.world.centerX, game.world.centerY - 50, "Your score has been submitted!");
-    submittedText.anchor.setTo(0.5);
-    submitText.setText('')
+    submitText.setText("");
+    submittedText.setText('Your score has been submitted!')
     button.destroy();
+    startButton = game.add.button(game.world.centerX, game.world.centerY+50, 'playAgain', reset, this);
+    startButton.anchor.setTo(0.5);
 
     var scoreData = {
         game: "guacAMole",
         score: score,
-        gameIcon:  "../assets/guacAMole_icon.png"
+        gameIcon: "../assets/guacAMole_icon.png"
     }
     console.log("Ajaxing!")
     $.ajax({
