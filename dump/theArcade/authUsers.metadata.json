@@ -1,0 +1,1 @@
+{"options":{},"indexes":[{"v":1,"key":{"_id":1},"name":"_id_","ns":"theArcade.authUsers"},{"v":1,"unique":true,"key":{"userName":1},"name":"userName_1","ns":"theArcade.authUsers","background":true},{"v":1,"unique":true,"key":{"email":1},"name":"email_1","ns":"theArcade.authUsers","background":true}]}
