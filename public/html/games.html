@@ -8,16 +8,63 @@
 
 <body ng-controller="joystickController as joy">
 
-    
+
     <div class="jumbotron gameBackground">
         <div class="container">
-            <div class="row gameSpecial">
+            <div class="row greenText">
                 <span class="col-md-3"></span>
-                <span class="col-md-6 "><h1 class="shadowText">GAMES PAGE</h1></span>
+                <span class="col-md-6 " style="margin-top: 50px"><h1 class="shadowText">GAMES PAGE</h1>
                 <span class="col-md-3"></span>
             </div>
-
         </div>
+
+        <div class="container-fluid greenText shadowText">
+            <div class="row">
+                <span class="col-sm-1 col-md-1"></span>
+                <div class="col-sm-5 col-md-5">
+
+                    <h2>Snake</h2>
+                    <a href='/snake' class="gameLinks">
+                        <img class="gameAvatar" src="../assets/snake_icon.png"></a>
+                </div>
+
+                <div class="col-sm-5 col-md-5">
+                    <h2>Guac-A-Mole!</h2>
+                    <a href='/guacAMole' class="gameLinks">
+                        <img class="gameAvatar" src="../assets/guacAMole_icon.png"></a>
+                </div>
+                  <span class="col-sm-1 col-md-1"></span>
+
+            </div>
+        </div>
+
+        <div class="container-fluid greenText shadowText">
+            <div class="row">
+                <span class="col-sm-1 col-md-1"></span>
+                <div class="col-sm-5 col-md-5">
+
+                    <h2>Tetris</h2>
+                    <a href='/tetris' class="gameLinks">
+                        <img class="gameAvatar" src="../assets/tetris_icon.png"></a>
+
+                </div>
+
+                <div class="col-sm-5 col-md-5">
+
+                    <h2>Tower Defense</h2>
+                    <a href='/towerDefense' class="gameLinks">
+                        <img class="gameAvatar" src="../assets/towerDefense_icon.png"></a>
+                </div>
+                <span class="col-sm-1 col-md-1"></span>
+
+            </div>
+        </div>
+
+
+
+
+
+
     </div>
 
     <div class="footer">
@@ -28,5 +75,6 @@
 
 
 </body>
+
 
 </html>

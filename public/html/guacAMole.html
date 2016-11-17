@@ -3,48 +3,72 @@
 
 <head>
     <title>Casey's Arcade</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.8/angular.js"></script>
-      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.8/angular-cookies.js"></script>
+          <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.8/angular-cookies.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.8/angular-route.js" integrity="sha256-SAQ4JgNuN5J22HeNmrNXLyvqEh6gUoWsetBCX8EUnZQ=" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="/main.css">
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/phaser/2.6.2/phaser.js"></script>
+
     <script type="text/javascript" src="/js/main.js"></script>
       <script type="text/javascript" src="/js/login.js"></script>
       <script type="text/javascript" src="/js/profileFactory.js"></script>
-      <script type="text/javascript" src="/js/scoreFactory.js"></script>
+        <script type="text/javascript" src="/js/scoreFactory.js"></script>
       <script type="text/javascript" src="/js/profile.js"></script>
     <link rel='shortcut icon' href="/favicon.ico?v=2" type='image/gif' />
+
+
+    <link rel="stylesheet" href="./html/css/guacAMole.css">
+
+
 </head>
 
-<body ng-controller="joystickController as joy" >
-
+<body ng-controller="joystickController as joy">
   <nav class="navbar navbar-inverse">
       <div class="container-fluid">
           <div class="navbar-header">
               <a class="navbar-brand" href="#/">Let's Play!</a>
           </div>
           <ul class="nav navbar-nav">
-              <li><a href="#/">Home</a></li>
-              <li><a href="#/about">About</a>
+              <li><a href="/#/">Home</a></li>
+              <li><a href="/#/about">About</a>
               </li>
-              <li><a href="#/games">Games</a></li>
-              <li><a href="#/leaderboards">Leaderboards</a></li>
+              <li><a href="/#/games">Games</a></li>
+              <li><a href="/#/leaderboards">Leaderboards</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
-              <li><a href="#/{{joy.userData.registerStatus}}"><span class="glyphicon glyphicon-user"></span>{{joy.userData.userName}}</a></li>
-              <li><a href="{{joy.userData.logoutStatus}}"><span class="glyphicon glyphicon-log-in"></span> {{joy.userData.logoutStatus}}</a></li>
+            <li><a href="/#/{{joy.userData.registerStatus}}"><span class="glyphicon glyphicon-user"></span>{{joy.userData.userName}}</a></li>
+            <li><a href="{{joy.userData.logoutStatus}}"><span class="glyphicon glyphicon-log-in"></span> {{joy.userData.logoutStatus}}</a></li>
           </ul>
       </div>
   </nav>
-<div class="ng-view">
-</div>
+
+
+    <div class="jumbotron gameBackground">
+        <div class="container center-block">
+
+            <div class="row">
+                <div class="span4"></div>
+                <div class="span4">
+                      <div id="phaser" class="gameScreen"></div>
+
+                </div>
+                <div class="span4"></div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>&copy; Casey's Arcade 2016</p>
+    </div>
+
+
 
 
 </body>
+<script type="text/javascript" src="./js/games/guacAMole.js"></script>
 
 </html>

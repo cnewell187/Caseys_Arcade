@@ -1,71 +1,141 @@
 html, body {
-  margin: 0 auto;
-  padding: 0;
-  text-align: center;
-  font-family: Tahoma, sans-serif;
+    margin: 0 auto;
+    padding: 0;
+    text-align: center;
+    font-family: Tahoma, sans-serif;
 }
 
 .btn-main {
-  background-color: #333;
-  color: #fff;
-
-  font-weight: 600;
-  font-size: 18px;
-  letter-spacing: 1.3px;
-  padding: 16px 40px;
-  text-decoration: none;
-  text-transform: uppercase;
+    background-color: #333;
+    color: #fff;
+    font-weight: 600;
+    font-size: 18px;
+    letter-spacing: 1.3px;
+    padding: 16px 40px;
+    text-decoration: none;
+    text-transform: uppercase;
 }
 
-.main{
-  text-align: center;
-}
-.gameBackground{
-  height: 90vh;
-  background: url(http://cdn.wallpapersafari.com/49/80/21L9av.jpg);
-  margin: 0;
+.main {
+    text-align: center;
 }
 
-.navbar{
-  margin: 0;
+.gameBackground {
+    min-height: 97vh;
+    background: url(./assets/arcadeBackground.jpg);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    margin: 0;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
 
+.navbar {
+    margin: 0;
+    position: fixed;
+    z-index: 9000;
+    width: 99vw;
 }
 
 .navbar-inverse .navbar-brand {
     color: #7FFF00;
 }
 
-
-
 .btn-main {
-  background-color: #333;
-  color: #fff;
-  font-weight: 600;
-  font-size: 18px;
-  letter-spacing: 1.3px;
-  padding: 16px 40px;
-  text-decoration: none;
-  text-transform: uppercase;
-  border: black solid 2px;
-  }
+    background-color: #333;
+    color: #fff;
+    font-weight: 600;
+    font-size: 18px;
+    letter-spacing: 1.3px;
+    padding: 16px 40px;
+    text-decoration: none;
+    text-transform: uppercase;
+    border: black solid 2px;
+}
 
-  .gameSpecial{
+.gameSpecial {
     margin-top: 20vh;
     margin-bottom: 40px;
     color: #7FFF00;
+}
 
-  }
-
-  .shadowText{
+.shadowText {
     text-shadow: -3px 0 black, 0 3px black, 3px 0 black, 0 -3px black;
-  }
+}
 
-  .footer{
+.footer {
     text-align: left;
     color: #7FFF00;
     background-color: #333;
-  }
+    position: fixed;
+    bottom: 0;
+    width: 100vw;
+}
 
-  .footer p{
+.footer p {
     margin: 0;
-  }
+}
+
+.greenText {
+    color: #7FFF00;
+}
+
+.gameLinks {
+    color: #7FFF00;
+    font-size: 18px;
+}
+
+.leaderboardTable {
+    color: #7FFF00;
+    text-align: left;
+}
+
+.table-hover {
+    background-color: black;
+    color: #7FFF00;
+}
+
+.avatar {
+    height: 60px;
+    width: 60px;
+    margin-top: 30px;
+}
+
+.gameAvatar {
+    height: 25vw;
+    width: 25vw;
+    border: black solid 5px;
+    background: purple;
+}
+
+.leftText {
+    text-align: left;
+}
+
+.gameProfile {
+    height: 100px;
+    width: 100px;
+    border: black solid 5px;
+    background: purple;
+}
+
+.container {
+    display: inline-block;
+}
+
+.gameIcon {
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.gameIcon p {
+    font-size: 14px;
+}
+
+#phaser {
+  margin-top: 100px;
+}
+
+#canvas {
+  margin-top: 100px;
+}

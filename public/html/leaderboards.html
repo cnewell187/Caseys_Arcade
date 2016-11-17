@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html ng-app="arcade" lang="en">
+
+<head>
+    <title>Casey's Arcade</title>
+
+</head>
+
+<body ng-controller="joystickController as joy">
+
+
+    <div class="jumbotron gameBackground">
+        <div class="container">
+            <div class="row greenText">
+                <span class="col-md-3"></span>
+                <span class="col-md-6 " style="margin-top: 50px"><h1 class="shadowText">Leaderboards</h1>
+                </span>
+                <span class="col-md-3"></span>
+            </div>
+
+            <div class="row">
+
+                <span class="col-md-5"> <p class="greenText shadowText" >Snake!</p>  <table class="table table-hover table-responsive leaderboardTable">
+                    <thead>
+                      <tr>
+                        <th>
+                          User
+                        </th>
+                        <th>
+                          Score
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody ng-repeat="user in joy.snakeLeaderboard">
+                      <tr>
+                        <td>
+                          <a href="#/publicProfile/{{user.gameUser}}" >{{user.gameUser}}</a>
+                        </td>
+                        <td>
+                        {{user.highscore}}
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+
+</span>
+                <span class="col-md-2 ">
+                </span>
+                <span class="col-md-5 ">
+                  <p class="greenText shadowText">Guac-A-Mole!</p>
+                  <table class="table table-hover table-responsive leaderboardTable">
+                      <thead>
+
+                        <tr>
+                          <th>
+                            User
+                          </th>
+                          <th>
+                            Score
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody ng-repeat="user in joy.guacAMoleLeaderboard">
+                        <tr>
+                          <td>
+                          <a href="#/publicProfile/{{user.gameUser}}">{{user.gameUser}}</a>
+                          </td>
+                          <td>
+                            {{user.highscore}}
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+
+                </span>
+            </div>
+
+            <div class="row">
+
+                <span class="col-md-5"> <p class="greenText shadowText" >Tetris!</p>  <table class="table table-hover table-responsive leaderboardTable">
+                    <thead>
+                      <tr>
+                        <th>
+                          User
+                        </th>
+                        <th>
+                          Score
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody ng-repeat="user in joy.tetrisLeaderboard">
+                      <tr>
+                        <td>
+                        <a href="#/publicProfile/{{user.gameUser}}" >{{user.gameUser}}</a>
+                        </td>
+                        <td>
+                      {{user.highscore}}
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+
+</span>
+                <span class="col-md-2 ">
+                </span>
+                <span class="col-md-5 ">
+                  <p class="greenText shadowText">Tower Defense!</p>
+                  <table class="table table-hover table-responsive leaderboardTable">
+                      <thead>
+
+                        <tr>
+                          <th>
+                            User
+                          </th>
+                          <th>
+                            Score
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody ng-repeat="user in joy.snakeLeaderboard">
+                        <tr>
+                          <td>
+                            <a href="#/publicProfile/{{user.gameUser}}">{{user.gameUser}}</a>
+                          </td>
+                          <td>
+                          {{user.highscore}}
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+
+                </span>
+            </div>
+
+            <div class="row">
+
+                <span class="col-md-5"> <p class="greenText shadowText" >Snake!</p>  <table class="table table-hover table-responsive leaderboardTable">
+                    <thead>
+                      <tr>
+                        <th>
+                          User
+                        </th>
+                        <th>
+                          Score
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody ng-repeat="user in joy.snakeLeaderboard">
+                      <tr>
+                        <td>
+                          <a href="#/publicProfile/{{user.gameUser}}">{{user.gameUser}}</a>
+                        </td>
+                        <td>
+                        {{user.highscore}}
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+
+</span>
+                <span class="col-md-2 ">
+                </span>
+                <span class="col-md-5 ">
+                  <p class="greenText shadowText">Guac-A-Mole!</p>
+                  <table class="table table-hover table-responsive leaderboardTable">
+                      <thead>
+
+                        <tr>
+                          <th>
+                            User
+                          </th>
+                          <th>
+                            Score
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody ng-repeat="user in joy.guacAMoleLeaderboard">
+                        <tr>
+                          <td>
+                            <a href="#/publicProfile/{{user.gameUser}}">{{user.gameUser}}</a>
+                          </td>
+                          <td>
+                            {{user.highscore}}
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+
+                </span>
+            </div>
+
+            <div class="row">
+
+                <span class="col-md-5"> <p class="greenText shadowText" >Snake!</p>  <table class="table table-hover table-responsive leaderboardTable">
+                    <thead>
+                      <tr>
+                        <th>
+                          User
+                        </th>
+                        <th>
+                          Score
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody ng-repeat="user in joy.snakeLeaderboard">
+                      <tr>
+                        <td>
+                          <a href="#/publicProfile/{{user.gameUser}}">{{user.gameUser}}</a>
+                        </td>
+                        <td>
+                          {{user.highscore}}
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+
+</span>
+                <span class="col-md-2 ">
+                </span>
+                <span class="col-md-5 ">
+                  <p class="greenText shadowText">Guac-A-Mole!</p>
+                  <table class="table table-hover table-responsive leaderboardTable">
+                      <thead>
+
+                        <tr>
+                          <th>
+                            User
+                          </th>
+                          <th>
+                            Score
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody ng-repeat="user in joy.guacAMoleLeaderboard">
+                        <tr>
+                          <td>
+                            <a href="#/publicProfile/{{user.gameUser}}">{{user.gameUser}}</a>
+                          </td>
+                          <td>
+                            {{user.highscore}}
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+
+                </span>
+            </div>
+
+
+
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>&copy; Casey's Arcade 2016</p>
+    </div>
+
+
+
+
+</body>
+
+</html>
