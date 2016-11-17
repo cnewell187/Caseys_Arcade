@@ -1,12 +1,14 @@
 angular.module('arcade')
     .controller('chatController', chatController);
 
-chatController.$inject = ['$http', "$scope","profileFact"];
+chatController.$inject = ['$http', "$scope","profileFact", "$location"];
 
-function chatController($http, $scope, profileFact) {
+function chatController($http, $scope, profileFact, $location) {
+
+
     var chat = this;
     chat.username = "";
-    chat.room = "";
+    chat.room = window.location.pathname;
     chat.messageHistory = [];
     // var doStuffLater = new Promise(function(resolve, reject){
     //   $http.get("http://api.github.com").then(function(res){
@@ -21,10 +23,9 @@ function chatController($http, $scope, profileFact) {
     // })
     profileFact.getUserData().then(function(){
     chat.login();
-    return 7;
-  }).then(function(num){
-    console.log("The promised number: ", num)
-  });
+    chat.join()
+
+  })
     chat.userData = profileFact.userData;
 
     console.log("Trying to open socket")
@@ -73,13 +74,15 @@ function chatController($http, $scope, profileFact) {
 
     chat.join = function() {
         //shout shout, let it all out!
-        console.log("Joining the ", chat.room, " room");
+        console.log("Joining the ", window.location.pathname, " room");
         socket.emit('join', {
             sender: chat.userData.userName,
-            room: chat.room,
+            room: window.location.pathname,
         });
 
     };
+
+
 
     chat.leave = function() {
         //shout shout, let it all out!
@@ -97,7 +100,9 @@ function chatController($http, $scope, profileFact) {
         data.sender += "("+chat.room+ ")";
         console.log("Shout To All Received from: ", data.sender, "The message is: ", data.content)
         chat.messageHistory.push(data)
-        $scope.$apply();
+        var objDiv = document.getElementById("chatroom");
+              $scope.$apply();
+                objDiv.scrollTop = objDiv.scrollHeight;
     })
 
 }

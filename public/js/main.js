@@ -4,10 +4,14 @@ angular.module('arcade', ['ngRoute', "ngCookies"])
 
 joystick.$inject = ['$http', 'profileFact', 'scoreFact', '$location'];
 
-angular.module("arcade").config(gameRoutes);
-
-
 gameRoutes.$inject = ["$routeProvider"];
+
+angular.module("arcade").config( gameRoutes);
+
+
+
+
+
 
 function gameRoutes($routeProvider) {
     $routeProvider.when('/', {
@@ -63,6 +67,8 @@ function gameRoutes($routeProvider) {
 };
 
 function joystick($http, profileFact, scoreFact, $location) {
+
+  //$locationProvider.html5Mode(true);
     var joy = this;
     joy.newUser = {};
     joy.greeting = "You are now under our control, do not attempt to change the channel";

@@ -139,3 +139,11 @@ html, body {
 #canvas {
   margin-top: 100px;
 }
+
+.chatroom{
+  background: black;
+  border: solid 2px  #7FFF00;
+  height: 350px;
+  text-align:left;
+  overflow:auto;
+}
