@@ -8,7 +8,7 @@ function profileFactory($http, $cookies, $location, $routeParams) {
     console.log("The Route Params: ", $routeParams)
     var pro = this;
     var userData = {
-        userName: "Bill",
+        userName: "Karl",
         avatar: "None",
         favoriteGame: "Snake",
         totalPoints: 0,
@@ -24,7 +24,7 @@ function profileFactory($http, $cookies, $location, $routeParams) {
     var otherGameStats = [];
     function getUserData() {
         console.log("The Route Params: ", $routeParams)
-        $http.get('/userData').then(function(responseData) {
+      return  $http.get('/userData').then(function(responseData) {
             console.log("The response data from profile factory: ", responseData)
             userData.userName = responseData.data.userName
             userData.logoutStatus = responseData.data.logoutStatus

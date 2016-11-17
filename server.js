@@ -16,6 +16,9 @@ var sessions = require('client-sessions')({
   }
 });
 
+var sockets = require("./controllers/sockets.js");
+
+
 app.use(sessions)
 app.use(logger("dev"));
 app.use(bodyParser.urlencoded({extended: true}));
@@ -36,10 +39,12 @@ app.use(express.static('public'))
 
 var port = process.env.PORT || 8785;
 
-app.listen(port, function(err){
+
+app.server=app.listen(port, function(err){
   if(err){
     console.log("Server error: ", err)
     process.exit(1);
   }
   console.log('Server running on port ' + port);
 });
+sockets(app, port);
