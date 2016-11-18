@@ -171,15 +171,21 @@ function avocado() {
         mainThis.MAX_AVOCADO_GROWTH = 1000;
     }
 
-    if (avocadosMade > 39) {
+    if (avocadosMade > 34) {
         mainThis.MIN_AVOCADO_GROWTH = 500;
         mainThis.MAX_AVOCADO_GROWTH = 900;
     }
 
-    if (avocadosMade > 44) {
+    if (avocadosMade > 40) {
         mainThis.MIN_AVOCADO_GROWTH = 400;
         mainThis.MAX_AVOCADO_GROWTH = 800;
     }
+
+    if (avocadosMade > 44) {
+        mainThis.MIN_AVOCADO_GROWTH = 200;
+        mainThis.MAX_AVOCADO_GROWTH = 600;
+    }
+
 
     game.time.events.add(game.rnd.integerInRange(this.MIN_AVOCADO_GROWTH, this.MAX_AVOCADO_GROWTH), mainThis.killMe);
 

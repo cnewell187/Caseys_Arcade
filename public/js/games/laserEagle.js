@@ -27,6 +27,7 @@ function preload() {
     game.load.image("swallow", "assets/laserEagle/swallow2.png")
     game.load.image("eagleEnemy", "assets/laserEagle/eagle1.png")
     game.load.image('button', 'assets/laserEagle/submit.png');
+    game.load.image('start', 'assets/laserEagle/start.png');
     game.load.image('playAgain', 'assets/guacAMole/playAgain.png');
 
     game.load.spritesheet("theBird", "assets/laserEagle/thePlayerBird.png", 128, 128, 9)
@@ -59,6 +60,17 @@ function create() {
 
     cursors = game.input.keyboard.createCursorKeys();
     laserButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
+    game.input.keyboard.removeKeyCapture(Phaser.Keyboard.SPACEBAR);
+
+    // game.onBlur.add(function() {
+    //     console.log("blurred!")
+    //   game.input.enabled = false;
+    // }, this);
+    // game.onFocus.add(function() {
+    //     console.log("focused!")
+    //     // game.input.enabled = true;
+    // }, this);
+
 
     //this adds bulletgroup to the eagle
 
@@ -101,7 +113,7 @@ function create() {
         console.log(enemy.damageAmount)
     })
 
-    game.time.events.add(1000, launchSwallow);
+
 
     eagles = game.add.group();
     eagles.enableBody = true;
@@ -115,7 +127,10 @@ function create() {
         console.log(enemy.damageAmount)
     })
 
-    game.time.events.add(1000, launchEagle);
+
+
+      startButton = game.add.button(game.world.centerX, game.world.centerY, 'start', startGame, this);
+      startButton.anchor.setTo(0.5);
 
     //explosion pool
 
@@ -157,6 +172,27 @@ function create() {
     gameOverText.visible = false;
 }
 
+function startGame() {
+
+
+    scoreData = {
+        game: 'laserEagle',
+        gameAvatar: "../assets/eagle_icon.png"
+    }
+    $.ajax({
+        url: "/updateLastPlayed",
+        method: 'POST',
+        data: scoreData
+    })
+    console.log("Starting the Game")
+    startButton.destroy();
+
+    game.time.events.add(1000, launchEagle);
+      game.time.events.add(1000, launchSwallow);
+}
+
+
+
 function launchSwallow() {
 
     var enemy_speed = 300;
@@ -185,41 +221,83 @@ function launchEagle() {
     var timeBetweenWaves = 6000;
 
     //  Launch wave
-    for (var i = 0; i < numEnemiesInWave; i++) {
-        console.log("launching an eagle!!")
-        var enemy = eagles.getFirstExists(false);
-        if (enemy) {
 
-            enemy.reset(startingX + i * 100, -verticalSpacing * i);
-            enemy.body.velocity.y = verticalSpeed;
+    if (game.rnd.integerInRange(0, 1)) {
+        for (var i = 0; i < numEnemiesInWave; i++) {
+            console.log("launching an eagle!!")
+            var enemy = eagles.getFirstExists(false);
+            if (enemy) {
 
-            var bulletSpeed = 400;
-            var firingDelay = 2000;
-            enemy.lasers = 1;
-            enemy.lastShot = 0;
+                enemy.reset(startingX + i * 100, -verticalSpacing * i);
+                enemy.body.velocity.y = verticalSpeed;
 
-            //  Update function for each enemy
-            enemy.update = function() {
+                var bulletSpeed = 400;
+                var firingDelay = 2000;
+                enemy.lasers = 1;
+                enemy.lastShot = 0;
 
-                enemyLaser = enemyLasers.getFirstExists(false);
-                if (enemyLaser &&
-                    this.alive &&
-                    this.lasers &&
-                    this.y > game.width / 8 &&
-                    game.time.now > firingDelay + this.lastShot) {
-                    this.lastShot = game.time.now;
-                    this.lasers--;
-                    enemyLaser.reset(this.x, this.y + this.height / 2);
-                    enemyLaser.damageAmount = this.damageAmount;
-                    var angle = game.physics.arcade.moveToObject(enemyLaser, player, bulletSpeed);
-                }
+                //  Update function for each enemy
+                enemy.update = function() {
 
-                //  Kill enemies once they go off screen
-                if (this.y > game.height + 200) {
-                    this.kill();
-                }
-            };
+                    enemyLaser = enemyLasers.getFirstExists(false);
+                    if (enemyLaser &&
+                        this.alive &&
+                        this.lasers &&
+                        this.y > game.width / 8 &&
+                        game.time.now > firingDelay + this.lastShot) {
+                        this.lastShot = game.time.now;
+                        this.lasers--;
+                        enemyLaser.reset(this.x, this.y + this.height / 2);
+                        enemyLaser.damageAmount = this.damageAmount;
+                        var angle = game.physics.arcade.moveToObject(enemyLaser, player, bulletSpeed);
+                    }
+
+                    //  Kill enemies once they go off screen
+                    if (this.y > game.height + 200) {
+                        this.kill();
+                    }
+                };
+            }
         }
+    } else {
+
+        for (var i = 0; i < numEnemiesInWave; i++) {
+            console.log("launching an eagle!!")
+            var enemy = eagles.getFirstExists(false);
+            if (enemy) {
+                startingX = game.rnd.integerInRange(game.width - 100, game.width - 50);
+                enemy.reset(startingX - i * 100, -verticalSpacing * i);
+                enemy.body.velocity.y = verticalSpeed;
+
+                var bulletSpeed = 400;
+                var firingDelay = 2000;
+                enemy.lasers = 1;
+                enemy.lastShot = 0;
+
+                //  Update function for each enemy
+                enemy.update = function() {
+
+                    enemyLaser = enemyLasers.getFirstExists(false);
+                    if (enemyLaser &&
+                        this.alive &&
+                        this.lasers &&
+                        this.y > game.width / 8 &&
+                        game.time.now > firingDelay + this.lastShot) {
+                        this.lastShot = game.time.now;
+                        this.lasers--;
+                        enemyLaser.reset(this.x, this.y + this.height / 2);
+                        enemyLaser.damageAmount = this.damageAmount;
+                        var angle = game.physics.arcade.moveToObject(enemyLaser, player, bulletSpeed);
+                    }
+
+                    //  Kill enemies once they go off screen
+                    if (this.y > game.height + 200) {
+                        this.kill();
+                    }
+                };
+            }
+        }
+
     }
 
     //  Send another wave soon
@@ -266,6 +344,15 @@ function enemyHit(player, enemyLaser) {
 
 
 function update() {
+
+  // if (game.input.activePointer.withinGame) {
+  //     game.input.enabled = true;
+  //     game.stage.backgroundColor = '#736357';
+  // } else {
+  //     game.input.enabled = false;
+  //     game.stage.backgroundColor = '#731111';
+  // }
+
     skyField.tilePosition.y += 1;
     scoreText.render()
 
@@ -346,7 +433,7 @@ function gameOverMan() {
     console.log("runnning gameOVerMan")
     gameOverText.visible = true;
 
-    button = game.add.button(game.world.centerX, game.world.centerY+100, 'button', submitScore, this);
+    button = game.add.button(game.world.centerX, game.world.centerY + 100, 'button', submitScore, this);
     button.anchor.setTo(0.5);
     button.purplePeople = true;
     console.log("the button inside game over man: ", button)
@@ -373,15 +460,15 @@ function submitScore() {
         gameIcon: "../assets/eagle_icon.png"
     }
     console.log("Ajaxing!")
-        $.ajax({
-            url: "/newScore",
-            method: 'POST',
-            data: scoreData
-        })
+    $.ajax({
+        url: "/newScore",
+        method: 'POST',
+        data: scoreData
+    })
 }
 
 function render() {
-  scoreText.setText("Score: " + score);
+    scoreText.setText("Score: " + score);
 
 
 }
@@ -404,9 +491,9 @@ function fireLaser() {
 }
 
 function restart() {
-  submitText.setText('')
-  startButton.destroy()
-    //  Reset the enemies
+    submitText.setText('')
+    startButton.destroy()
+        //  Reset the enemies
     swallowSpacing = 1000;
     swallows.callAll('kill');
     eagles.callAll('kill');
