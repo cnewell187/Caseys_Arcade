@@ -23,6 +23,9 @@ module.exports = function(app) {
     app.get('/snake', function(req, res) {
         res.sendFile('snake.html', {root: './public/html'})
     });
+    app.get('/laserEagle', function(req, res) {
+        res.sendFile('laserEagle.html', {root: './public/html'})
+    });
 
     app.get('/tetris', function(req, res) {
       console.log("navigating to tetrs:" ,req.session.userId)
@@ -41,10 +44,12 @@ module.exports = function(app) {
       app.post('/register', userController.register)
       app.post('/newScore', userController.newScore)
       app.get('/getMyGameStats', scoreController.getMyGameStats)
+      app.get('/getOtherGameStats/:userName', scoreController.getOtherGameStats)
       app.post('/updateLastPlayed', scoreController.updateLastPlayed)
       app.get('/snakeLeaderboard', scoreController.snakeLeaderboard)
       app.get('/guacAMoleLeaderboard', scoreController.guacAMoleLeaderboard)
       app.get('/tetrisLeaderboard', scoreController.tetrisLeaderboard)
+      app.get('/laserEagleLeaderboard', scoreController.laserEagleLeaderboard)
 
 
 }

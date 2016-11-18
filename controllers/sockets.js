@@ -24,13 +24,13 @@ module.exports = function(app, port) {
             //the server will put this clients socket in the data.room group
             socket.join(data.room);
             socketServer.to(data.room).emit("talk", {sender:"System", content:data.sender +
-          "entered the " +data.room +" room"})
+          " entered the room"})
         });
         socket.on('leave', function(data) {
             console.log(data.username, " is leaving : ", data.room);
             socket.leave(data.room);
             socketServer.to(data.room).emit("talk", {sender:"System", content:data.sender +
-          "left the " +data.room +" room"})
+          " left the " +data.room +" room"})
         })
 
         socket.on('talk', function(data) {

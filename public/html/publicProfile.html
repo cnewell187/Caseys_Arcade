@@ -12,80 +12,70 @@
   <div class="jumbotron gameBackground">
       <div class="container">
           <div class="row greenText">
-              <span class="col-md-1" style="margin-top: 50px"><img class="avatar pull-left" src="http://ascendantjustice.com/files/voc/followup/flood.png"></span>
-              <span class="col-md-3" style="margin-top: 50px"><h1 class="shadowText leftText">{{profCtrl.otherUserData.userName}}</h1> </span>
-              <span class="col-md-6 "></span>
 
-          </div>
-          <div class="row greenText">
-              <span class="col-md-4 leftText"> <p class="shadowText align-left">{{profCtrl.otherUserData.userName}}'s
-            favorite game boop: {{profCtrl.otherUserData.favoriteGame}}</p>
-            <p class="shadowText leftText">{{profCtrl.otherUserData.userName}}'s
-            total points: {{profCtrl.otherUserData.totalPoints}}</p></span>
-            <span class="col-md-3"></span>
-            <span class="col-md-5"> <p class="shadowText leftText">HighScores</p><table class="table table-hover table-responsive leaderboardTable pull-right">
-                <thead>
-                  <tr>
-                    <th>
-                      Game
-                    </th>
-                    <th>
-                      Score
-                    </th>
-                  </tr>
-                </thead>
-                <tbody ng-repeat="user in joy.snakeLeaderboard">
-                  <tr>
-                    <td>
-                      <a href="#/publicProfile/{{user.gameUser}}" >{{user.gameUser}}</a>
-                    </td>
-                    <td>
-                    {{user.highscore}}
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-
-</span>
+              <span class="col-md-5" style="margin-top: 50px"><img class="avatar pull-left" src="http://ascendantjustice.com/files/voc/followup/flood.png"><h1 class="shadowText leftText">{{profCtrl.otherUserData.userName}}</h1>
+                <br>
+                <p class="shadowText leftText">{{profCtrl.otherUserData.userName}}'s
+              favorite game boop: {{profCtrl.otherUserData.favoriteGame}}</p>
+              <p class="shadowText leftText">{{profCtrl.otherUserData.userName}}'s
+              Arcade Points: {{profCtrl.otherUserData.totalPoints}}</p>
+               </span>
+              <span class="col-md-2"></span>
+              <span class="col-md-6 "> <p class="shadowText leftText" style="margin-top: 50px">HighScores</p><table class="table table-hover table-responsive leaderboardTable pull-right">
+                  <thead>
+                    <tr>
+                      <th>
+                        Game
+                      </th>
+                      <th>
+                        Score
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody ng-repeat="game in profCtrl.otherGameStats">
+                    <tr>
+                      <td>
+                        <a href="/{{game.game}}" >{{game.game}}</a>
+                      </td>
+                      <td>
+                      {{game.highscore}}
+                      </td>
+                    </tr>
+                  </tbody>
+                </table></span>
 
           </div>
 
+          <div class="container greenText">
+              <span class="gameIcon" ng-repeat="game in profCtrl.otherGameStats">
+            <p >{{game.game}}</p>
+            <p>Last Played: {{game.lastPlayed | date}}</p><a href='/{{game.game}}' class="gameLinks">
+                <img class="gameProfile" src="{{game.gameIcon}}"></a>
+            <p>HighestScore: {{game.highscore}}</p>
+          </span>
+          </div>
 
-          <div class="row greenText">
-              <div class="col-sm-2 col-md-2">
-                  <p >Snake</p>
-                  Last Played: Nov 1st, 2011<a href='/snake' class="gameLinks">
-                      <img class="gameProfile" src="http://icons.iconarchive.com/icons/martin-berube/animal/256/snake-icon.png"></a>
-                    HighestScore: 9000
-              </div>
 
-              <div class="col-sm-2 col-md-2">
-                  <p >Guac-A-Mole!</p>
-                  Last Played: Nov 1st, 2011<a href='/guacAMole' class="gameLinks">
-                      <img class="gameProfile" src="http://www.pngall.com/wp-content/uploads/2016/05/Avocado-Free-PNG-Image.png"></a>
-                      HighestScore: 9000
-              </div>
+          <!-- <div class="row greenText">
+            <span class="col-sm-2 col-md-2"></span>
+              <div class="col-sm-2 col-md-2" ng-repeat="game in profCtrl.myGameStats">
+                  <p >{{game.game}}</p>
+                  Last Played: {{game.lastPlayed | date}}<a href='/snake' class="gameLinks">
+                      <img class="gameProfile" src="{{game.gameIcon}}"></a>
+                  HighestScore: {{game.highscore}}
+              </div> -->
 
-              <div class="col-sm-2 col-md-2">
-
-                  <p >Tetris</p>
-                  Last Played: Nov 1st, 2011<a href='/tetris' class="gameLinks">
-                      <img class="gameProfile" src="http://i.imgur.com/1bjkdgo.png"></a>
-                      HighestScore: 9000
-              </div>
-
-              <div class="col-sm-2 col-md-2">
+          <!-- <div class="col-sm-2 col-md-2">
 
                   <p>Tower Defense</p>
                   Last Played: Nov 1st, 2011<a href='/towerDefense' class="gameLinks">
-                      <img class="gameProfile" src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/The.Matrix.glmatrix.2.png/670px-The.Matrix.glmatrix.2.png"></a>
+                      <img class="gameProfile" src="../assets/towerDefense_icon.png"></a>
                       HighestScore: 9000
-              </div>
-          </div>
+              </div> -->
       </div>
+  </div>
 
-</div>
-
+  </div>
 
     <div class="footer">
         <p>&copy; Casey's Arcade 2016</p>

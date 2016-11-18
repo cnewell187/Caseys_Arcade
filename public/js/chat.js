@@ -97,7 +97,7 @@ function chatController($http, $scope, profileFact, $location) {
     //make a chat.whisper function
 
     socket.on('talk', function(data) {
-        data.sender += "("+chat.room+ ")";
+        // data.sender += "("+chat.room+ ")";
         console.log("Shout To All Received from: ", data.sender, "The message is: ", data.content)
         chat.messageHistory.push(data)
         var objDiv = document.getElementById("chatroom");

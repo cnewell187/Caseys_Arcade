@@ -5,13 +5,28 @@ module.exports = {
     snakeLeaderboard: snakeLeaderboard,
     guacAMoleLeaderboard: guacAMoleLeaderboard,
     tetrisLeaderboard: tetrisLeaderboard,
+    laserEagleLeaderboard: laserEagleLeaderboard,
     updateLastPlayed: updateLastPlayed,
-    getMyGameStats: getMyGameStats
+    getMyGameStats: getMyGameStats,
+    getOtherGameStats: getOtherGameStats
 }
 
 function snakeLeaderboard(req, res) {
     Game.find({
         game: 'snake'
+    }).sort({
+        'highscore': -1
+    }).limit(5).exec(
+        function(err, data) {
+            console.log(data)
+            res.send(data)
+        }
+    )
+}
+
+function laserEagleLeaderboard(req, res) {
+    Game.find({
+        game: 'laserEagle'
     }).sort({
         'highscore': -1
     }).limit(5).exec(
@@ -48,17 +63,17 @@ function tetrisLeaderboard(req, res) {
     )
 }
 
-function getLeaderBoard(req, res){
-  Game.find({
-      game: req.body.game
-  }).sort({
-      'highscore': -1
-  }).limit(5).exec(
-      function(err, data) {
-          console.log(data)
-          res.send(data)
-      }
-  )
+function getLeaderBoard(req, res) {
+    Game.find({
+        game: req.body.game
+    }).sort({
+        'highscore': -1
+    }).limit(5).exec(
+        function(err, data) {
+            console.log(data)
+            res.send(data)
+        }
+    )
 }
 
 function updateLastPlayed(req, res) {
@@ -97,26 +112,60 @@ function updateLastPlayed(req, res) {
         res.send("You must be logged in to save your score!")
     }
 }
-function getMyGameStats(req, res){
 
-  if (req.session.userId) {
-      User.findOne({
-              _id: req.session.userId
-          }, function(err, doc) {
-              var conditions = {
-                  gameUser: doc.userName,
+function getMyGameStats(req, res) {
+
+    if (req.session.userId) {
+        User.findOne({
+                _id: req.session.userId
+            }, function(err, doc) {
+                var conditions = {
+                    gameUser: doc.userName,
                 }
-              Game.find(conditions, function(err, docs) {
-                  console.log("The error: ", err)
-                  console.log("Score updated Docs ", docs)
-                      //info.message = "Score Submitted Yo"
-                  res.send(docs)
-              });
-          }
+                Game.find(conditions, function(err, docs) {
+                    console.log("The error: ", err)
+                    console.log("Score updated Docs ", docs)
+                        //info.message = "Score Submitted Yo"
+                    res.send(docs)
+                });
+            }
 
-      )
-  } else {
-      res.send("You must be logged in to save your score!")
-  }
+        )
+    } else {
+        res.send("You must be logged in to save your score!")
+    }
+
+}
+
+function getOtherGameStats(req, res) {
+    console.log("The req.params.userName:", req.params.userName)
+
+    User.findOne({
+            userName: req.params.userName
+        }, function(err, doc) {
+
+            if (err) {
+                console.log("Error YO")
+            } else {
+              console.log("The Doc in get otherGameStats: ", doc)
+              if(doc){
+                var conditions = {
+                    gameUser: doc.userName,
+                }
+                Game.find(conditions, function(err, docs) {
+                    console.log("The error: ", err)
+                    console.log("Score updated Docs ", docs)
+                        //info.message = "Score Submitted Yo"
+                    res.send(docs)
+                });
+              }
+              else{
+                res.send("No such user")
+              }
+
+            }
+        }
+
+    )
 
 }

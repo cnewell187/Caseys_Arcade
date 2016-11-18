@@ -42,6 +42,9 @@ function gameRoutes($routeProvider) {
         .when('/tetris', {
             templateUrl: "/html/tetris.html",
         })
+        .when('/laserEagle', {
+            templateUrl: "/html/laserEagle.html",
+        })
         .when('/contact', {
             templateUrl: "/html/contact.html",
         })
@@ -78,6 +81,7 @@ function joystick($http, profileFact, scoreFact, $location) {
     joy.snakeLeaderboard = [];
     joy.guacAMoleLeaderboard =[];
     joy.tetrisLeaderboard = [];
+    joy.laserEagleLeaderboard = [];
 
 
     joy.getLeaderboard = function(game) {
@@ -96,12 +100,13 @@ function joystick($http, profileFact, scoreFact, $location) {
                 console.log("The leaderData: ", leaderData)
                 joy[game].push(leaderData)
             }
-            console.log(joy.snakeLeaderboard)
+            console.log(joy.laserEagleLeaderboard)
         })
     }
     joy.getLeaderboard("snakeLeaderboard");
     joy.getLeaderboard('guacAMoleLeaderboard')
     joy.getLeaderboard('tetrisLeaderboard')
+    joy.getLeaderboard('laserEagleLeaderboard')
   //   scoreFact.getLeaderboard();
   //   joy.snakeLeaderboard = scoreFact.leaderboardData
   //  console.log(scoreFact.leaderboardData, "Booop")

@@ -70,7 +70,7 @@
                     <h3> Tower Defense Chatroom</h3>
 
                     <div>
-                      
+
                         <div class="chatroom" id="chatroom">
                         <div ng-repeat="message in chat.messageHistory" >
                             {{message.sender}} : {{message.content}}
@@ -80,7 +80,7 @@
 
                     <div>
                       <form ng-submit="chat.talk()">
-                        <input type="text" class="chatInput" ng-model="chat.message" style="width: 100%">
+                        <input type="text" class="chatInput" ng-model="chat.message" style="width: 100%" placeholder="type here...">
                       </form>
 
                         <button type="button" class="chatButton" ng-click="chat.talk()" style="width: 100%"> Talk!</button>
