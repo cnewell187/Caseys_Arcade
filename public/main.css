@@ -21,7 +21,7 @@ html, body {
 }
 
 .gameBackground {
-    min-height: 97vh;
+    min-height: 100vh;
     background: url(./assets/arcadeBackground.jpg);
     background-repeat: no-repeat;
     background-attachment: fixed;
@@ -35,7 +35,7 @@ html, body {
     margin: 0;
     position: fixed;
     z-index: 9000;
-    width: 99vw;
+    width: 100vw;
 }
 
 .navbar-inverse .navbar-brand {
@@ -71,6 +71,7 @@ html, body {
     position: fixed;
     bottom: 0;
     width: 100vw;
+    height:25px;
 }
 
 .footer p {

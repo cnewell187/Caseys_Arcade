@@ -32,10 +32,27 @@
                 <span class="col-md-6 "> <button type="submit" class="siteBtn" ng-click="userCtrl.register(); regForm=!regForm">Register</button> </span>
                 <span class="col-md-3"></span>
             </div>
-            <div class="row" ng-show="regForm">
-                <span class="col-md-4"></span>
-                <span class="col-md-4"><h2>Thanks For Registering, Please Login to Continue!</h2></span>
-                <span class="col-md-4"></span>
+
+            <div ng-show="regForm">
+                <div class="row">
+                    <span class="col-md-4"></span>
+                    <span class="col-md-4"><h2 style="margin-top:100px">Thanks For Registering, Please Login to Continue!</h2></span>
+                    <span class="col-md-4"></span>
+                </div>
+
+                <div class="row">
+                    <span class="col-md-3"></span>
+                    <span class="col-md-6 ">
+                      Email<input class="form-control dark-form greenText" ng-model="userCtrl.email" placeholder="Email">
+                      Password<input type="password" class="form-control dark-form greenText" ng-model="userCtrl.password" placeholder="Password">
+                    <span class="col-md-3"></span>
+                </div>
+                <div class="row">
+                    <span class="col-md-3"></span>
+                    <span class="col-md-6 "> <button type="submit" class="siteBtn" ng-click="userCtrl.login()">Login</button> </span>
+                    <span class="col-md-3"></span>
+                </div>
+
             </div>
 
         </div>
