@@ -41,8 +41,8 @@
                 <li><a href="/#/leaderboards">Leaderboards</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="/#/{{joy.userData.registerStatus}}"><span class="glyphicon glyphicon-user"></span>{{joy.userData.userName}}</a></li>
-                <li><a href="{{joy.userData.logoutStatus}}"><span class="glyphicon glyphicon-log-in"></span> {{joy.userData.logoutStatus}}</a></li>
+                <li><a ng-cloak href="/#/{{joy.userData.registerStatus}}"><span class="glyphicon glyphicon-user"></span>{{joy.userData.userName}}</a></li>
+                <li><a ng-cloak href="{{joy.userData.logoutStatus}}"><span class="glyphicon glyphicon-log-in"></span> {{joy.userData.logoutStatus}}</a></li>
             </ul>
         </div>
     </nav>
@@ -67,7 +67,7 @@
                     <div>
 
                         <div class="chatroom" id="chatroom">
-                        <div ng-repeat="message in chat.messageHistory" >
+                        <div ng-cloak ng-repeat="message in chat.messageHistory" >
                             {{message.sender}} : {{message.content}}
                         </div>
                       </div>

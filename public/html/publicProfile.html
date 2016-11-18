@@ -15,9 +15,9 @@
 
               <span class="col-md-5" style="margin-top: 50px"><img class="avatar pull-left" src="http://ascendantjustice.com/files/voc/followup/flood.png"><h1 class="shadowText leftText">{{profCtrl.otherUserData.userName}}</h1>
                 <br>
-                <p class="shadowText leftText">{{profCtrl.otherUserData.userName}}'s
+                <p ng-cloak class="shadowText leftText">{{profCtrl.otherUserData.userName}}'s
               favorite game boop: {{profCtrl.otherUserData.favoriteGame}}</p>
-              <p class="shadowText leftText">{{profCtrl.otherUserData.userName}}'s
+              <p ng-cloak class="shadowText leftText">{{profCtrl.otherUserData.userName}}'s
               Arcade Points: {{profCtrl.otherUserData.totalPoints}}</p>
                </span>
               <span class="col-md-2"></span>
@@ -32,7 +32,7 @@
                       </th>
                     </tr>
                   </thead>
-                  <tbody ng-repeat="game in profCtrl.otherGameStats">
+                  <tbody ng-cloak ng-repeat="game in profCtrl.otherGameStats">
                     <tr>
                       <td>
                         <a href="/{{game.game}}" >{{game.game}}</a>
@@ -48,10 +48,10 @@
 
           <div class="container greenText">
               <span class="gameIcon" ng-repeat="game in profCtrl.otherGameStats">
-            <p >{{game.game}}</p>
-            <p>Last Played: {{game.lastPlayed | date}}</p><a href='/{{game.game}}' class="gameLinks">
+            <p ng-cloak >{{game.game}}</p>
+            <p ng-cloak>Last Played: {{game.lastPlayed | date}}</p><a href='/{{game.game}}' class="gameLinks">
                 <img class="gameProfile" src="{{game.gameIcon}}"></a>
-            <p>HighestScore: {{game.highscore}}</p>
+            <p ng-cloak>HighestScore: {{game.highscore}}</p>
           </span>
           </div>
 
