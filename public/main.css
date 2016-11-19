@@ -107,7 +107,7 @@ html, body {
     height: 25vw;
     width: 25vw;
     border: black solid 5px;
-    background: purple;
+    background: #9400D3;
 }
 
 .leftText {
@@ -118,7 +118,7 @@ html, body {
     height: 100px;
     width: 100px;
     border: black solid 5px;
-    background: purple;
+    background: #9400D3;
 }
 
 .container {

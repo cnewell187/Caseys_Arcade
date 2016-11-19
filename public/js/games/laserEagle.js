@@ -23,6 +23,7 @@ var playerWeapon = "default";
 function preload() {
     game.load.image("sky", "assets/laserEagle/sky.png")
     game.load.image("birdLaser", "assets/laserEagle/birdLaser.png")
+    game.load.image("birdLaser2", "assets/laserEagle/birdLaser2.png")
     game.load.image("enemyLaser", "assets/laserEagle/enemyLaser.png")
     game.load.image("swallow", "assets/laserEagle/swallow2.png")
     game.load.image("eagleEnemy", "assets/laserEagle/eagle1.png")
@@ -83,6 +84,17 @@ function create() {
     lasers.setAll('outOfBoundsKill', true);
     lasers.setAll('checkWorldBounds', true);
 
+    lasers2 = game.add.group();
+    lasers2.enableBody = true;
+    lasers2.physicsBodyType = Phaser.Physics.ARCADE;
+    lasers2.createMultiple(30, 'birdLaser2');
+    lasers2.setAll('anchor.x', 0.5);
+    lasers2.setAll('anchor.y', 1);
+    lasers2.setAll('outOfBoundsKill', true);
+    lasers2.setAll('checkWorldBounds', true);
+
+
+
     //
     enemyLasers = game.add.group();
     enemyLasers.enableBody = true;
@@ -129,8 +141,8 @@ function create() {
 
 
 
-      startButton = game.add.button(game.world.centerX, game.world.centerY, 'start', startGame, this);
-      startButton.anchor.setTo(0.5);
+    startButton = game.add.button(game.world.centerX, game.world.centerY, 'start', startGame, this);
+    startButton.anchor.setTo(0.5);
 
     //explosion pool
 
@@ -188,7 +200,7 @@ function startGame() {
     startButton.destroy();
 
     game.time.events.add(1000, launchEagle);
-      game.time.events.add(1000, launchSwallow);
+    game.time.events.add(1000, launchSwallow);
 }
 
 
@@ -344,15 +356,6 @@ function enemyHit(player, enemyLaser) {
 
 
 function update() {
-
-  // if (game.input.activePointer.withinGame) {
-  //     game.input.enabled = true;
-  //     game.stage.backgroundColor = '#736357';
-  // } else {
-  //     game.input.enabled = false;
-  //     game.stage.backgroundColor = '#731111';
-  // }
-
     skyField.tilePosition.y += 1;
     scoreText.render()
 
@@ -401,9 +404,11 @@ function update() {
 
     game.physics.arcade.overlap(player, swallows, crash, null, this);
     game.physics.arcade.overlap(swallows, lasers, hitTarget, null, this);
+      game.physics.arcade.overlap(swallows, lasers2, hitTarget, null, this);
 
     game.physics.arcade.overlap(player, eagles, crash, null, this);
     game.physics.arcade.overlap(eagles, lasers, hitTarget, null, this);
+      game.physics.arcade.overlap(eagles, lasers2, hitTarget, null, this);
 
     game.physics.arcade.overlap(enemyLasers, player, enemyHit, null, this);
 
@@ -411,20 +416,6 @@ function update() {
 
         gameOverMan();
 
-
-        // function setResetHandlers() {
-        //     //  The "click to restart" handler
-        //     tapRestart = game.input.onTap.addOnce(_restart, this);
-        //     spaceRestart = laserButton.onDown.addOnce(_restart, this);
-        //
-        //     function _restart() {
-        //       scoreText.render()
-        //         tapRestart.detach();
-        //         spaceRestart.detach();
-        //         restart();
-        //     }
-        // }
-        // setResetHandlers();
     }
 
 }
@@ -475,20 +466,37 @@ function render() {
 
 function fireLaser() {
     var fireRate = 400;
-    var laser = lasers.getFirstExists(false);
-    if (game.time.now > laserTimer) {
-        if (laser)
 
-        {
-            laser.reset(player.x, player.y + 8);
-            laser.angle = player.angle;
-            laser.body.velocity.y = -400;
-            game.physics.arcade.velocityFromAngle(laser.angle - 90, 400, laser.body.velocity);
-            laser.body.velocity.x += player.body.velocity.x;
-            laserTimer = game.time.now + fireRate;
+    if (score < 5000) {
+
+        var laser = lasers.getFirstExists(false);
+        if (game.time.now > laserTimer) {
+            if (laser) {
+                laser.reset(player.x, player.y + 8);
+                laser.angle = player.angle;
+                laser.body.velocity.y = -400;
+                game.physics.arcade.velocityFromAngle(laser.angle - 90, 400, laser.body.velocity);
+                laser.body.velocity.x += player.body.velocity.x;
+                laserTimer = game.time.now + fireRate;
+            }
+        }
+    } else {
+        fireRate = 200;
+        var laser = lasers2.getFirstExists(false);
+        if (game.time.now > laserTimer) {
+            if (laser) {
+                laser.reset(player.x, player.y + 8);
+                laser.angle = player.angle;
+                laser.body.velocity.y = -400;
+                game.physics.arcade.velocityFromAngle(laser.angle - 90, 400, laser.body.velocity);
+                laser.body.velocity.x += player.body.velocity.x;
+                laserTimer = game.time.now + fireRate;
+
+            }
         }
     }
 }
+
 
 function restart() {
     submitText.setText('')
