@@ -17,6 +17,7 @@ var gameOverText;
 var button;
 var submitText;
 var swallowLaunchTimer;
+var roastedChickenLaunchTimer;
 var swallowSpacing = 1000;
 var playerWeapon = "default";
 
@@ -29,6 +30,7 @@ function preload() {
     game.load.image("eagleEnemy", "assets/laserEagle/eagle1.png")
     game.load.image('button', 'assets/laserEagle/submit.png');
     game.load.image('start', 'assets/laserEagle/start.png');
+      game.load.image('roastedChicken', 'assets/laserEagle/roastedChicken.png');
     game.load.image('playAgain', 'assets/guacAMole/playAgain.png');
 
     game.load.spritesheet("theBird", "assets/laserEagle/thePlayerBird.png", 128, 128, 9)
@@ -139,6 +141,18 @@ function create() {
         console.log(enemy.damageAmount)
     })
 
+  roastedChickens = game.add.group();
+  roastedChickens.enableBody = true;
+  roastedChickens.physicsBodyType = Phaser.Physics.ARCADE;
+  roastedChickens.createMultiple(10, 'roastedChicken');
+  roastedChickens.setAll('anchor.x', 0.5);
+  roastedChickens.setAll('anchor.y', 0.5);
+  roastedChickens.forEach(function(enemy) {
+        console.log("setting enemy damageAmount")
+        enemy.healthUP = 30;
+        console.log(enemy.damageAmount)
+    })
+
 
 
     startButton = game.add.button(game.world.centerX, game.world.centerY, 'start', startGame, this);
@@ -149,7 +163,7 @@ function create() {
     explosions = game.add.group();
     explosions.enableBody = true;
     explosions.physicsBodyType = Phaser.Physics.ARCADE;
-    explosions.createMultiple(30, 'explosion');
+    explosions.createMultiple(50, 'explosion');
     explosions.setAll('anchor.x', 0.5);
     explosions.setAll('anchor.y', 0.5);
     explosions.forEach(function(explosion) {
@@ -159,7 +173,7 @@ function create() {
     blueExplosions = game.add.group();
     blueExplosions.enableBody = true;
     blueExplosions.physicsBodyType = Phaser.Physics.ARCADE;
-    blueExplosions.createMultiple(30, 'explosion');
+    blueExplosions.createMultiple(50, 'explosion');
     blueExplosions.setAll('anchor.x', 0.5);
     blueExplosions.setAll('anchor.y', 0.5);
     blueExplosions.forEach(function(blueExplosion) {
@@ -201,6 +215,7 @@ function startGame() {
 
     game.time.events.add(1000, launchEagle);
     game.time.events.add(1000, launchSwallow);
+    game.time.events.add(1000, launchRoastedChicken);
 }
 
 
@@ -223,6 +238,26 @@ function launchSwallow() {
 
     //  fly birdie!
     swallowLaunchTimer = game.time.events.add(game.rnd.integerInRange(swallowSpacing, swallowSpacing + 1000), launchSwallow);
+}
+
+function launchRoastedChicken() {
+
+    var enemy_speed = 100;
+
+    var enemy = roastedChickens.getFirstExists(false);
+    if (enemy) {
+        enemy.reset(game.rnd.integerInRange(0, game.width), -20);
+        //enemy.body.velocity.x = game.rnd.integerInRange(-200, 200);
+        enemy.body.velocity.y = enemy_speed;
+
+    }
+
+    enemy.update = function() {
+        //enemy.angle = game.math.radToDeg(Math.atan2(enemy.body.velocity.x, enemy.body.velocity.y));
+    }
+
+    //  fly birdie!
+    roastedChickenLaunchTimer = game.time.events.add(game.rnd.integerInRange(4000, 7000), launchRoastedChicken);
 }
 
 function launchEagle() {
@@ -343,10 +378,10 @@ function hitTarget(enemy, laser) {
 
 function enemyHit(player, enemyLaser) {
     enemyLaser.kill()
-    var blueExplosion = blueExplosions.getFirstExists(false);
-    blueExplosion.reset(enemyLaser.body.x + enemyLaser.body.halfWidth, enemyLaser.body.y + enemyLaser.body.halfHeight);
-    blueExplosion.body.velocity.y = enemyLaser.body.velocity.y;
-    blueExplosion.play('blueExplosion', 30, false, true);
+    // var blueExplosion = blueExplosions.getFirstExists(false);
+    // blueExplosion.reset(enemyLaser.body.x + enemyLaser.body.halfWidth, enemyLaser.body.y + enemyLaser.body.halfHeight);
+    // blueExplosion.body.velocity.y = enemyLaser.body.velocity.y;
+    // blueExplosion.play('blueExplosion', 30, false, true);
 
     console.log("The enemy laser damage amount: ", enemyLaser.damageAmount)
     player.damage(enemyLaser.damageAmount);
@@ -404,19 +439,27 @@ function update() {
 
     game.physics.arcade.overlap(player, swallows, crash, null, this);
     game.physics.arcade.overlap(swallows, lasers, hitTarget, null, this);
-      game.physics.arcade.overlap(swallows, lasers2, hitTarget, null, this);
+    game.physics.arcade.overlap(swallows, lasers2, hitTarget, null, this);
 
     game.physics.arcade.overlap(player, eagles, crash, null, this);
     game.physics.arcade.overlap(eagles, lasers, hitTarget, null, this);
-      game.physics.arcade.overlap(eagles, lasers2, hitTarget, null, this);
+    game.physics.arcade.overlap(eagles, lasers2, hitTarget, null, this);
 
     game.physics.arcade.overlap(enemyLasers, player, enemyHit, null, this);
+    game.physics.arcade.overlap(roastedChickens, player, healthUp, null, this);
 
     if (!player.alive && gameOverText.visible === false) {
 
         gameOverMan();
 
     }
+
+}
+
+function healthUp(player, roastedChickens){
+  player.health += 10;
+  roastedChickens.kill();
+  playerHealth.render();
 
 }
 
