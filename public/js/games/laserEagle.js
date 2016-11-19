@@ -121,7 +121,7 @@ function create() {
     swallows.setAll('checkWorldBounds', true);
     swallows.forEach(function(enemy) {
         console.log("setting enemy damageAmount")
-        enemy.damageAmount = 25;
+        enemy.damageAmount = 15;
         console.log(enemy.damageAmount)
     })
 
@@ -135,7 +135,7 @@ function create() {
     eagles.setAll('anchor.y', 0.5);
     eagles.forEach(function(enemy) {
         console.log("setting enemy damageAmount")
-        enemy.damageAmount = 35;
+        enemy.damageAmount = 20;
         console.log(enemy.damageAmount)
     })
 
