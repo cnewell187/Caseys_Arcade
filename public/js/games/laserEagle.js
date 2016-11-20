@@ -147,6 +147,9 @@ function create() {
   roastedChickens.createMultiple(10, 'roastedChicken');
   roastedChickens.setAll('anchor.x', 0.5);
   roastedChickens.setAll('anchor.y', 0.5);
+  roastedChickens.setAll('outOfBoundsKill', true);
+  roastedChickens.setAll('checkWorldBounds', true);
+
   roastedChickens.forEach(function(enemy) {
         console.log("setting enemy damageAmount")
         enemy.healthUP = 30;
