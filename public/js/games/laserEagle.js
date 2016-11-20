@@ -251,7 +251,8 @@ function launchRoastedChicken() {
         enemy.body.velocity.y = enemy_speed;
 
     }
-
+    console.log("the roastedchickens group in launchRoastedChicken: ", roastedChickens)
+    console.log("The Enemy object in launchRoastedChicken: ", enemy)
     enemy.update = function() {
         //enemy.angle = game.math.radToDeg(Math.atan2(enemy.body.velocity.x, enemy.body.velocity.y));
     }
