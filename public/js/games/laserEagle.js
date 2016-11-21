@@ -768,7 +768,8 @@ function restart() {
     giantChicken.kill();
     game.time.events.remove(swallowLaunchTimer);
     game.time.events.add(1000, launchSwallow);
-
+    game.time.events.add(1000, launchRoastedChicken);
+    game.time.events.add(40000, launchGiantChicken);
     //  Revive the player
     player.revive();
     player.health = 100;
