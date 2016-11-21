@@ -20,22 +20,26 @@ var swallowLaunchTimer;
 var roastedChickenLaunchTimer;
 var swallowSpacing = 1000;
 var playerWeapon = "default";
+var giantChicken;
+var giantChickenLaunchTimer;
+var giantChickenSpacing = 40000;
 
 function preload() {
     game.load.image("sky", "assets/laserEagle/sky.png")
     game.load.image("birdLaser", "assets/laserEagle/birdLaser.png")
     game.load.image("birdLaser2", "assets/laserEagle/birdLaser2.png")
     game.load.image("enemyLaser", "assets/laserEagle/enemyLaser.png")
+    game.load.image("egg", "assets/laserEagle/egg.png")
     game.load.image("swallow", "assets/laserEagle/swallow2.png")
     game.load.image("eagleEnemy", "assets/laserEagle/eagle1.png")
     game.load.image('button', 'assets/laserEagle/submit.png');
     game.load.image('start', 'assets/laserEagle/start.png');
-      game.load.image('roastedChicken', 'assets/laserEagle/roastedChicken.png');
+    game.load.image('roastedChicken', 'assets/laserEagle/roastedChicken.png');
     game.load.image('playAgain', 'assets/guacAMole/playAgain.png');
-
     game.load.spritesheet("theBird", "assets/laserEagle/thePlayerBird.png", 128, 128, 9)
-    game.load.spritesheet("chicken", "assets/laserEagle/bigChicken.png", 128, 128, 9)
+    game.load.spritesheet("giantChicken", "assets/laserEagle/bigChicken.png", 100, 121, 3)
     game.load.spritesheet("explosion", "assets/laserEagle/explosion.png", 128, 128, 25)
+    game.load.spritesheet("smallExplosion", "assets/laserEagle/explosionSmall.png", 32, 32, 25)
     game.load.spritesheet("blueExplosion", "assets/laserEagle/blueExplosion.png", 47, 47)
 }
 
@@ -111,6 +115,18 @@ function create() {
         enemy.body.setSize(20, 20);
     });
 
+    eggs = game.add.group();
+    eggs.enableBody = true;
+    eggs.physicsBodyType = Phaser.Physics.ARCADE;
+    eggs.createMultiple(30, 'egg');
+    eggs.setAll('anchor.x', 0.5);
+    eggs.setAll('anchor.y', 0.5);
+    eggs.setAll('outOfBoundsKill', true);
+    eggs.setAll('checkWorldBounds', true);
+    eggs.forEach(function(enemy) {
+        enemy.body.setSize(20, 20);
+    });
+
     //makes first enemy
 
     swallows = game.add.group();
@@ -141,20 +157,28 @@ function create() {
         console.log(enemy.damageAmount)
     })
 
-  roastedChickens = game.add.group();
-  roastedChickens.enableBody = true;
-  roastedChickens.physicsBodyType = Phaser.Physics.ARCADE;
-  roastedChickens.createMultiple(10, 'roastedChicken');
-  roastedChickens.setAll('anchor.x', 0.5);
-  roastedChickens.setAll('anchor.y', 0.5);
-  roastedChickens.setAll('outOfBoundsKill', true);
-  roastedChickens.setAll('checkWorldBounds', true);
+    roastedChickens = game.add.group();
+    roastedChickens.enableBody = true;
+    roastedChickens.physicsBodyType = Phaser.Physics.ARCADE;
+    roastedChickens.createMultiple(10, 'roastedChicken');
+    roastedChickens.setAll('anchor.x', 0.5);
+    roastedChickens.setAll('anchor.y', 0.5);
+    roastedChickens.setAll('outOfBoundsKill', true);
+    roastedChickens.setAll('checkWorldBounds', true);
 
-  roastedChickens.forEach(function(enemy) {
+    roastedChickens.forEach(function(enemy) {
         console.log("setting enemy damageAmount")
         enemy.healthUP = 30;
         console.log(enemy.damageAmount)
     })
+
+    giantChicken = game.add.sprite(0, 0, 'giantChicken');
+
+    giantChicken.exists = false;
+    giantChicken.alive = false;
+    giantChicken.anchor.setTo(0.5, 0.5);
+    giantChicken.damageAmount = 50;
+    game.physics.enable(giantChicken, Phaser.Physics.ARCADE);
 
 
 
@@ -171,6 +195,16 @@ function create() {
     explosions.setAll('anchor.y', 0.5);
     explosions.forEach(function(explosion) {
         explosion.animations.add('explosion');
+    });
+
+    smallExplosions = game.add.group();
+    smallExplosions.enableBody = true;
+    smallExplosions.physicsBodyType = Phaser.Physics.ARCADE;
+    smallExplosions.createMultiple(50, 'smallExplosion');
+    smallExplosions.setAll('anchor.x', 0.5);
+    smallExplosions.setAll('anchor.y', 0.5);
+    smallExplosions.forEach(function(smallExplosion) {
+        smallExplosion.animations.add('smallExplosion');
     });
 
     blueExplosions = game.add.group();
@@ -203,7 +237,6 @@ function create() {
 
 function startGame() {
 
-
     scoreData = {
         game: 'laserEagle',
         gameAvatar: "../assets/eagle_icon.png"
@@ -215,12 +248,80 @@ function startGame() {
     })
     console.log("Starting the Game")
     startButton.destroy();
-
-    game.time.events.add(1000, launchEagle);
+    eagleLaunchTimer = game.time.events.add(1000, launchEagle);
+    // game.time.events.add(1000, launchEagle);
     game.time.events.add(1000, launchSwallow);
     game.time.events.add(1000, launchRoastedChicken);
+    game.time.events.add(40000, launchGiantChicken);
 }
 
+function launchGiantChicken() {
+    console.log("launching giant chicken")
+    game.time.events.remove(swallowLaunchTimer);
+    game.time.events.remove(eagleLaunchTimer);
+
+    giantChicken.exists = true;
+    giantChicken.alive = true;
+    giantChicken.enableBody = true;
+
+    giantChicken.reset(game.width / 2, -giantChicken.height);
+    giantChicken.body.velocity.y = 100;
+    giantChicken.body.velocity.x = 200;
+    giantChicken.health = 500;
+    giantChicken.damageAmount = 1;
+    var flap = giantChicken.animations.add('flap')
+    giantChicken.animations.play('flap', 12, true)
+
+    var bulletSpeed = 400;
+    var firingDelay = 120;
+    giantChicken.lasers = 1000;
+    giantChicken.lastShot = 0;
+
+
+    giantChicken.update = function() {
+            console.log("The this of giantChicken", this)
+
+            if(player.body.y < giantChicken.body.y){
+              var bulletSpeed = 500;
+              var firingDelay = 10;
+            }
+            else{
+
+                  var bulletSpeed = 400;
+                  var firingDelay = 120;
+            }
+
+
+            if (giantChicken.body.y > giantChicken.height - 75) {
+                giantChicken.body.velocity.y = 0
+            }
+            if (giantChicken.body.x > game.width - 50) {
+                giantChicken.body.velocity.x = -150
+            }
+            if (giantChicken.body.x < 50) {
+                giantChicken.body.velocity.x = 150
+            }
+
+
+            egg = eggs.getFirstExists(false);
+
+            if (egg &&
+                this.alive &&
+                this.lasers &&
+                // this.y > game.width / 8 &&
+                game.time.now > firingDelay + this.lastShot) {
+                this.lastShot = game.time.now;
+                this.lasers--;
+                egg.reset(this.x, this.y + this.height / 2);
+                egg.damageAmount = this.damageAmount;
+                var angle = game.physics.arcade.moveToObject(egg, player, bulletSpeed);
+            }
+
+        }
+        // swallowSpacing = 10000;
+        // eagleSpacing = 12000;
+
+}
 
 
 function launchSwallow() {
@@ -269,7 +370,7 @@ function launchEagle() {
     var verticalSpeed = 180;
     var verticalSpacing = 70;
     var numEnemiesInWave = 5;
-    var timeBetweenWaves = 6000;
+    var eagleSpacing = 6000;
 
     //  Launch wave
 
@@ -281,10 +382,26 @@ function launchEagle() {
 
                 enemy.reset(startingX + i * 100, -verticalSpacing * i);
                 enemy.body.velocity.y = verticalSpeed;
+                if (score <= 10000) {
+                    var bulletSpeed = 400;
+                    var firingDelay = 2000;
+                }
 
-                var bulletSpeed = 400;
-                var firingDelay = 2000;
-                enemy.lasers = 1;
+                if (score > 10000) {
+                    var bulletSpeed = 400;
+                    var firingDelay = 1500;
+                }
+
+                if (score > 20000) {
+                    var bulletSpeed = 400;
+                    var firingDelay = 1000;
+                }
+
+                if (score > 20000) {
+                    var bulletSpeed = 400;
+                    var firingDelay = 650;
+                }
+                enemy.lasers = 10;
                 enemy.lastShot = 0;
 
                 //  Update function for each enemy
@@ -294,7 +411,7 @@ function launchEagle() {
                     if (enemyLaser &&
                         this.alive &&
                         this.lasers &&
-                        this.y > game.width / 8 &&
+                        // this.y > game.width / 8 &&
                         game.time.now > firingDelay + this.lastShot) {
                         this.lastShot = game.time.now;
                         this.lasers--;
@@ -307,6 +424,28 @@ function launchEagle() {
                     if (this.y > game.height + 200) {
                         this.kill();
                     }
+
+                    // if(score>1000){
+                    //
+                    //   enemyLaser = enemyLasers.getFirstExists(false);
+                    //   if (enemyLaser &&
+                    //       this.alive &&
+                    //       this.lasers &&
+                    //       // this.y > game.width / 8 &&
+                    //       game.time.now > firingDelay + this.lastShot) {
+                    //       this.lastShot = game.time.now;
+                    //       this.lasers--;
+                    //       enemyLaser.reset(this.x, this.y + this.height / 2);
+                    //       enemyLaser.damageAmount = this.damageAmount;
+                    //       var angle = game.physics.arcade.moveToObject(enemyLaser, player, 100);
+                    //   }
+                    //
+                    //   //  Kill enemies once they go off screen
+                    //   if (this.y > game.height + 200) {
+                    //       this.kill();
+                    //   }
+                    //
+                    // }
                 };
             }
         }
@@ -352,7 +491,7 @@ function launchEagle() {
     }
 
     //  Send another wave soon
-    eagleLaunchTimer = game.time.events.add(timeBetweenWaves, launchEagle);
+    eagleLaunchTimer = game.time.events.add(eagleSpacing, launchEagle);
 }
 
 function crash(player, enemy) {
@@ -380,12 +519,80 @@ function hitTarget(enemy, laser) {
 
 }
 
+function hitChicken(chicken, laser) {
+
+    var explosion = explosions.getFirstExists(false);
+    explosion.reset(laser.body.x + laser.body.halfWidth, laser.body.y + laser.body.halfHeight);
+    explosion.body.velocity.y = chicken.body.velocity.y;
+    explosion.play('explosion', 30, false, true);
+    giantChicken.health -= 20;
+    laser.kill()
+    if (giantChicken.health <= 0) {
+        giantChicken.kill()
+        var explosion = explosions.getFirstExists(false);
+        explosion.reset(laser.body.x + laser.body.halfWidth + game.rnd.integerInRange(-25, 25), laser.body.y + laser.body.halfHeight + game.rnd.integerInRange(-25, 25));
+        // explosion.body.velocity.y = chicken.body.velocity.y;
+        explosion.play('explosion', 30, false, true);
+
+        var explosion = explosions.getFirstExists(false);
+        explosion.reset(laser.body.x + laser.body.halfWidth - 50 + game.rnd.integerInRange(-25, 25), laser.body.y + laser.body.halfHeight - 50 + game.rnd.integerInRange(-25, 25));
+        // explosion.body.velocity.y = chicken.body.velocity.y;
+        explosion.play('explosion', 30, false, true);
+
+        var explosion = explosions.getFirstExists(false);
+        explosion.reset(laser.body.x + laser.body.halfWidth + 50 + game.rnd.integerInRange(-25, 25), laser.body.y + laser.body.halfHeight - 50 + game.rnd.integerInRange(-25, 25));
+        // explosion.body.velocity.y = chicken.body.velocity.y;
+        explosion.play('explosion', 30, false, true);
+
+        var explosion = explosions.getFirstExists(false);
+        explosion.reset(laser.body.x + laser.body.halfWidth + game.rnd.integerInRange(-25, 25), laser.body.y + laser.body.halfHeight - 50 + game.rnd.integerInRange(-25, 25));
+        // explosion.body.velocity.y = chicken.body.velocity.y;
+        explosion.play('explosion', 30, false, true)
+
+
+        //game.time.events.add(200, explosionFunction(laser, chicken))
+        //game.time.events.add(400, explosionFunction(laser, chicken))
+        game.time.events.add(200, explosionFunction, this, [laser, chicken])
+        game.time.events.add(200, explosionFunction, this, [laser, chicken])
+        game.time.events.add(200, explosionFunction, this, [laser, chicken])
+        game.time.events.add(400, explosionFunction, this, [laser, chicken])
+        game.time.events.add(400, explosionFunction, this, [laser, chicken])
+        game.time.events.add(400, explosionFunction, this, [laser, chicken])
+        game.time.events.add(600, explosionFunction, this, [laser, chicken])
+        game.time.events.add(600, explosionFunction, this, [laser, chicken])
+        game.time.events.add(800, explosionFunction, this, [laser, chicken])
+        game.time.events.add(800, explosionFunction, this, [laser, chicken])
+        game.time.events.add(1000, explosionFunction, this, [laser, chicken])
+        game.time.events.add(1000, explosionFunction, this, [laser, chicken])
+
+        game.time.events.add(3500, launchEagle);
+        game.time.events.add(3500, launchSwallow);
+        game.time.events.add(43000, launchGiantChicken);
+        for (var i = 0; i < 5; i++) {
+            var enemy = roastedChickens.getFirstExists(false);
+            if (enemy) {
+                enemy.reset(laser.body.x + laser.body.halfWidth + 50 + game.rnd.integerInRange(-110, 110), laser.body.y + laser.body.halfHeight - 50 + game.rnd.integerInRange(-110, 110));
+                //enemy.body.velocity.x = game.rnd.integerInRange(-200, 200);
+
+            }
+        }
+
+    }
+}
+
+function explosionFunction(bodies, chicken) {
+
+    var explosion = explosions.getFirstExists(false);
+    explosion.reset(bodies[1].body.x + bodies[1].body.halfWidth + game.rnd.integerInRange(-50, 50), bodies[1].body.y + bodies[1].body.halfHeight + game.rnd.integerInRange(-50, 50));
+    explosion.play('explosion', 30, false, true)
+}
+
 function enemyHit(player, enemyLaser) {
     enemyLaser.kill()
-    // var blueExplosion = blueExplosions.getFirstExists(false);
-    // blueExplosion.reset(enemyLaser.body.x + enemyLaser.body.halfWidth, enemyLaser.body.y + enemyLaser.body.halfHeight);
-    // blueExplosion.body.velocity.y = enemyLaser.body.velocity.y;
-    // blueExplosion.play('blueExplosion', 30, false, true);
+    var explosion = smallExplosions.getFirstExists(false);
+    explosion.reset(player.body.x + player.body.halfWidth, player.body.y + player.body.halfHeight);
+    explosion.body.velocity.y = player.body.velocity.y;
+    explosion.play('smallExplosion', 30, false, true);
 
     console.log("The enemy laser damage amount: ", enemyLaser.damageAmount)
     player.damage(enemyLaser.damageAmount);
@@ -449,7 +656,11 @@ function update() {
     game.physics.arcade.overlap(eagles, lasers, hitTarget, null, this);
     game.physics.arcade.overlap(eagles, lasers2, hitTarget, null, this);
 
+    game.physics.arcade.overlap(giantChicken, lasers, hitChicken, null, this);
+    game.physics.arcade.overlap(giantChicken, lasers2, hitChicken, null, this);
+
     game.physics.arcade.overlap(enemyLasers, player, enemyHit, null, this);
+    game.physics.arcade.overlap(eggs, player, enemyHit, null, this);
     game.physics.arcade.overlap(roastedChickens, player, healthUp, null, this);
 
     if (!player.alive && gameOverText.visible === false) {
@@ -460,10 +671,10 @@ function update() {
 
 }
 
-function healthUp(player, roastedChickens){
-  player.health += 10;
-  roastedChickens.kill();
-  playerHealth.render();
+function healthUp(player, roastedChickens) {
+    player.health += 10;
+    roastedChickens.kill();
+    playerHealth.render();
 
 }
 
@@ -553,6 +764,8 @@ function restart() {
     swallows.callAll('kill');
     eagles.callAll('kill');
     enemyLasers.callAll('kill');
+    eggs.callAll('kill');
+    giantChicken.kill();
     game.time.events.remove(swallowLaunchTimer);
     game.time.events.add(1000, launchSwallow);
 
