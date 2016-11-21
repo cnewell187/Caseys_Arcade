@@ -770,6 +770,7 @@ function restart() {
     game.time.events.remove(eagleLaunchTimer);
     game.time.events.remove(giantChickenLaunchTimer);
     game.time.events.add(1000, launchSwallow);
+      game.time.events.add(1000, launchEagle;
     game.time.events.add(1000, launchRoastedChicken);
     game.time.events.add(40000, launchGiantChicken);
     //  Revive the player
