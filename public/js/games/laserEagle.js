@@ -251,7 +251,7 @@ function startGame() {
     eagleLaunchTimer = game.time.events.add(1000, launchEagle);
     // game.time.events.add(1000, launchEagle);
     swallowLaunchTimer=game.time.events.add(1000, launchSwallow);
-    game.time.events.add(1000, launchRoastedChicken);
+    roastedChickenLaunchTimer=game.time.events.add(1000, launchRoastedChicken);
     giantChickenLaunchTimer=game.time.events.add(40000, launchGiantChicken);
 }
 
@@ -362,7 +362,7 @@ function launchRoastedChicken() {
     }
 
     //  fly birdie!
-    roastedChickenLaunchTimer = game.time.events.add(game.rnd.integerInRange(4000, 7000), launchRoastedChicken);
+    roastedChickenLaunchTimer = game.time.events.add(game.rnd.integerInRange(5000, 9000), launchRoastedChicken);
 }
 
 function launchEagle() {
@@ -769,8 +769,9 @@ function restart() {
     game.time.events.remove(swallowLaunchTimer);
     game.time.events.remove(eagleLaunchTimer);
     game.time.events.remove(giantChickenLaunchTimer);
+    game.time.events.remove(roastedChickenLaunchTimer);
     game.time.events.add(1000, launchSwallow);
-      game.time.events.add(1000, launchEagle);
+    game.time.events.add(1000, launchEagle);
     game.time.events.add(1000, launchRoastedChicken);
     game.time.events.add(40000, launchGiantChicken);
     //  Revive the player
