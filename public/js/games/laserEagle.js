@@ -250,9 +250,9 @@ function startGame() {
     startButton.destroy();
     eagleLaunchTimer = game.time.events.add(1000, launchEagle);
     // game.time.events.add(1000, launchEagle);
-    game.time.events.add(1000, launchSwallow);
+    swallowLaunchTimer=game.time.events.add(1000, launchSwallow);
     game.time.events.add(1000, launchRoastedChicken);
-    game.time.events.add(40000, launchGiantChicken);
+    giantChickenLaunchTimer=game.time.events.add(40000, launchGiantChicken);
 }
 
 function launchGiantChicken() {
@@ -767,6 +767,8 @@ function restart() {
     eggs.callAll('kill');
     giantChicken.kill();
     game.time.events.remove(swallowLaunchTimer);
+    game.time.events.remove(eagleLaunchTimer);
+    game.time.events.remove(giantChickenLaunchTimer);
     game.time.events.add(1000, launchSwallow);
     game.time.events.add(1000, launchRoastedChicken);
     game.time.events.add(40000, launchGiantChicken);
