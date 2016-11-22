@@ -162,3 +162,13 @@ html, body {
 .dark-form{
 background-color: #333;
 }
+
+.siteBtn{
+  background-color: #333;
+  color: #7FFF00;
+}
+
+.siteBtn:hover{
+  background-color: #999;
+  color: #2f5e00;
+}
