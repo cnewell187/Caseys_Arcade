@@ -7,10 +7,12 @@
     "bcryptjs": "^2.3.0",
     "body-parser": "^1.15.2",
     "client-sessions": "^0.7.0",
+    "dotenv": "^2.0.0",
     "express": "^4.14.0",
     "forever": "^0.15.3",
     "mongoose": "^4.6.6",
     "morgan": "^1.7.0",
+    "nodemailer": "^2.6.4",
     "request": "^2.76.0",
     "socket.io": "^1.5.1"
   },

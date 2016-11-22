@@ -3,22 +3,94 @@
 
 <head>
     <title>Casey's Arcade</title>
+    <script type="text/javascript" src="/js/suggestion.js"></script>
 
 </head>
 
 <body ng-controller="joystickController as joy">
 
 
-    <div class="jumbotron gameBackground">
+    <div class="jumbotron gameBackground" ng-controller="sugController as sug">
         <div class="container">
             <div class="row gameSpecial">
                 <span class="col-md-3"></span>
-                <span class="col-md-6 "><h1 class="shadowText">ABOUT PAGE</h1></span>
+                <span class="col-md-6 "><h1 class="shadowText">Suggestion Page</h1></span>
                 <span class="col-md-3"></span>
             </div>
 
+            <div ng-show="sugForm">
+                <div class="row">
+                    <span class="col-md-4"></span>
+                    <span class="col-md-4"><h2 style="margin-top:100px" class="greenText shadowText">Thanks For your suggestion!</h2>
+                        <input type="submit" class="btn btn-success btn-send" value="Submit Another Suggestion" ng-click="sugForm =!sugForm">
+                    </span>
+                    <span class="col-md-4"></span>
+                </div>
+            </div>
+
+            <form class="greenText" id="contact-form" role="form" ng-show="!sugForm">
+
+                <div class="messages"></div>
+
+                <div class="controls">
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="form_name">Firstname *</label>
+                                <input ng-model="sug.firstName" id="form_name" type="text" name="name" class="form-control dark-form greenText" placeholder="Please enter your firstname *" required="required" data-error="Firstname is required.">
+                                <div class="help-block with-errors"></div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="form_lastname">Lastname *</label>
+                                <input ng-model="sug.lastName" id="form_lastname" type="text" name="surname" class="form-control dark-form greenText" placeholder="Please enter your lastname *" required="required" data-error="Lastname is required.">
+                                <div class="help-block with-errors"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="form_email">Email *</label>
+                                <input ng-model="sug.email" id="form_email" type="email" name="email" class="form-control dark-form greenText" placeholder="Please enter your email *" required="required" data-error="Valid email is required.">
+                                <div class="help-block with-errors"></div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="form_phone">Phone</label>
+                                <input ng-model="sug.phone" id="form_phone" type="tel" name="phone" class="form-control dark-form greenText" placeholder="Please enter your phone">
+                                <div class="help-block with-errors"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="form_message">Message *</label>
+                                <textarea ng-model="sug.message" id="form_message" name="message" class="form-control dark-form greenText" placeholder="Message for me *" rows="4" required="required" data-error="Please,leave us a message."></textarea>
+                                <div class="help-block with-errors"></div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <input type="submit" class="btn btn-success btn-send" value="Send message" ng-click="sugForm =!sugForm; sug.submit()">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <p class="text-muted"><strong>*</strong> These fields are required.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </form>
+
         </div>
     </div>
+
+
 
     <div class="footer">
         <p>&copy; Casey's Arcade 2016</p>
