@@ -30,8 +30,8 @@ function gameRoutes($routeProvider) {
             controller: 'profileController',
             controllerAs: 'profCtrl'
         })
-        .when('/about', {
-            templateUrl: "/html/about.html",
+        .when('/suggestions', {
+            templateUrl: "/html/suggestions.html",
         })
         .when('/guacAMole', {
             templateUrl: "/html/guacAMole.html",
