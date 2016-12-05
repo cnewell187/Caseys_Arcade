@@ -33,5 +33,4 @@ function submitSuggestion(req, res) {
         res.json({yo: info.response});
     };
 });
-
 }

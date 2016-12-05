@@ -23,6 +23,9 @@ module.exports = function(app, port) {
 
             //the server will put this clients socket in the data.room group
             socket.join(data.room);
+            if(data.sender == "register"){
+              data.sender = "Guest"
+            }
             socketServer.to(data.room).emit("talk", {sender:"System", content:data.sender +
           " entered the room"})
         });
